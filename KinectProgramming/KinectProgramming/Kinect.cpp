@@ -56,6 +56,8 @@ HRESULT Kinect::Connection()
 		// Initialize the Kinect and specify that we'll be using skeleton
 		hr = ppNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
 	}
+
+	return hr;
 }
 
 void Kinect::ProcessSkeleton()

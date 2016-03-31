@@ -10,6 +10,12 @@
 #include <stdio.h>
 #include <tchar.h>
 
+// C++ standart library
+#include <iostream>
+#include <Windows.h>
+
+// Kinect header
+#include <NuiApi.h>
 
 
 

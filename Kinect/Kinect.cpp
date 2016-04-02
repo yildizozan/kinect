@@ -11,7 +11,7 @@
 
 ozansKinect::Kinect::Kinect()
 	:pNuiSensor(NULL),
-	kinectWorkingStatus(true),
+	kinectShutdown(false),
 	coordinateX(0), coordinateY(0)
 {
 }
@@ -19,20 +19,31 @@ ozansKinect::Kinect::Kinect()
 
 ozansKinect::Kinect::~Kinect()
 {
-	pNuiSensor->NuiShutdown();
+	if (pNuiSensor)
+	{
+		pNuiSensor->NuiShutdown();
+	}
+	std::cout << "Kinect not found." << std::endl;
+	system("PAUSE");
 	//pNuiSensor = nullptr; // neden olmuyor ?
 }
 
-HRESULT ozansKinect::Kinect::Initialize()
+//
+//	FUNCTION: Initialize
+//
+//	PURPOSE:
+//
+//	COMMENTS:
+//
+void ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
 
 	int iSensorCount = 0;
+
 	HRESULT hr = NuiGetSensorCount(&iSensorCount);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
+	if (connectionStatus(hr)) return;
+
 
 	// Look at each Kinect sensor
 	for (int i = 0; i < iSensorCount; i++)
@@ -40,15 +51,13 @@ HRESULT ozansKinect::Kinect::Initialize()
 		// Create the sensor so we can check status,
 		// if we can't create it, move on
 		hr = NuiCreateSensorByIndex(i, &tempNuiSensor);
-		if (FAILED(hr))
-		{
-			return hr;
-		}
+		if (connectionStatus(hr)) return;
 
 		// Get the status of the sensor, and if connected
 		// then we can initialize it
 		hr = tempNuiSensor->NuiStatus();
-		if (S_OK == hr)
+		if (connectionStatus(hr)) return;
+		else
 		{
 			pNuiSensor = tempNuiSensor;
 			break;
@@ -62,22 +71,30 @@ HRESULT ozansKinect::Kinect::Initialize()
 	if (pNuiSensor != NULL)
 	{
 		hr = pNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
-		if (SUCCEEDED(hr))
-		{
-			return hr;
-		}
 	}
 
-	// Always success for create kinect
-	return hr;
+	if (pNuiSensor == nullptr)
+	{
+		hr = E_FAIL;
+		if (connectionStatus(hr)) return;
+	}
+
+	return;
 }
 
+//
+//	FUNCTION: ProcessSkeleton
+//
+//	PURPOSE:
+//
+//	COMMENTS:
+//
 void ozansKinect::Kinect::ProcessSkeleton()
 {
 	// Create skeleton frame
 	NUI_SKELETON_FRAME skeletonFrame = { 0 };
 
-	// Analysis array
+	// Analysis data variable
 	Vector4 analysisDataHandRight;
 
 	HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATECY, &skeletonFrame);
@@ -96,42 +113,80 @@ void ozansKinect::Kinect::ProcessSkeleton()
 		if (NUI_SKELETON_TRACKED == trackingState)
 		{
 			// We're traking the right hand skeleton, write coordinate
-			analysisDataHandRight = skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT];
+			analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-			setCoordinate2Sens(analysisDataHandRight.x, analysisDataHandRight.y);
-			std::cout << getCoordinateX() << std::endl << getCoordinateY() << std::endl;
-			if (getCoordinateY() == 0 && getCoordinateX() == 0)
+			std::cout << analysisDataHandRight.x << std::endl << analysisDataHandRight.y << std::endl;
+
+			// Exit control
+			if (KinectExit(setCoordinate2Sens(analysisDataHandRight)))
 			{
-				setKinectExit(false);
+				setKinectShutdown(true);
 			}
-			// setCoordinate2Sens() BURADAN DEVAM *********************
 		}
 	}
 
 	return;
 }
 
-void ozansKinect::Kinect::setKinectExit(const bool x)
+//
+//	FUNCTION: KinectShutdown
+//
+//	PURPOSE:
+//
+//	COMMENTS:
+//
+bool ozansKinect::Kinect::KinectExit(const Vector4 data)
 {
-	kinectWorkingStatus = x;
+	if (-5 <= data.x && data.x <= 5 && -5 <= data.y && data.y <= 5)
+	{
+		return true;
+	}
+
+	return false;
 }
 
-bool ozansKinect::Kinect::getKinectExit() const
+void ozansKinect::Kinect::setKinectShutdown(const bool value)
 {
-	return kinectWorkingStatus;
+	kinectShutdown = value;
 }
 
-void ozansKinect::Kinect::setCoordinate2Sens(const double x, const double y)
+bool ozansKinect::Kinect::getKinectShutdown() const
 {
-	coordinateX = x * 100;
-	coordinateY = y * 100;
+	return kinectShutdown;
 }
 
-void ozansKinect::Kinect::setCoordinate3Sens(const double x, const double y)
+//
+//	FUNCTION: Coordinate2Sens
+//
+//	PURPOSE:
+//
+//	COMMENTS:
+//
+Vector4 ozansKinect::Kinect::setCoordinate2Sens(Vector4 data)
 {
-	coordinateX = x * 1000;
-	coordinateY = y * 1000;
+	data.w = data.w * 100;
+	data.x = data.x * 100;
+	data.y = data.y * 100;
+	data.z = data.z * 100;
 
+	return data;
+}
+
+//
+//	FUNCTION:	Coordinate3Sens
+//
+//	PURPOSE:	Transform coordinate 3 decimal number
+//
+//	COMMENTS:	asd
+//
+Vector4 ozansKinect::Kinect::setCoordinate3Sens(Vector4 data)
+{
+	data.w = data.w * 100;
+	data.x = data.x * 100;
+	data.y = data.y * 100;
+	data.z = data.z * 100;
+
+	return data;
 }
 
 int ozansKinect::Kinect::getCoordinateX() const
@@ -142,4 +197,22 @@ int ozansKinect::Kinect::getCoordinateX() const
 int ozansKinect::Kinect::getCoordinateY() const
 {
 	return coordinateY;
+}
+
+//
+//	FUNCTION: hrControl
+//
+//	PURPOSE:
+//
+//	COMMENTS:
+//
+bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
+{
+	if (FAILED(hr))
+	{
+		setKinectShutdown(true);
+		return true;
+	}
+
+	return false;
 }

@@ -4,7 +4,8 @@
 namespace ozansKinect
 {
 
-#define LATECY 1000
+#define LATECY 0
+	
 	struct _coordinate
 	{
 		int x, y;

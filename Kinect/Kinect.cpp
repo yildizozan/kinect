@@ -36,7 +36,7 @@ ozansKinect::Kinect::~Kinect()
 //
 //	PURPOSE:	
 //
-//	COMMENTS:	Sisteme takılı olan Kinect sayısına bakacak
+//	COMMENTS(TR):	Sisteme takılı olan Kinect sayısına bakacak
 //				her Kinect için sırayla bağlanmaya çalışacak,
 //				eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
 //				Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
@@ -93,7 +93,7 @@ void ozansKinect::Kinect::Initialize()
 //
 //	PURPOSE:
 //
-//	COMMENTS:
+//	COMMENTS(TR):	
 //
 void ozansKinect::Kinect::ProcessSkeleton()
 {
@@ -143,7 +143,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 //	PURPOSE:
 //
-//	COMMENTS:
+//	COMMENTS(TR):
 //
 bool ozansKinect::Kinect::KinectExit(const Vector4 leftHand, const Vector4 rightHand)
 {
@@ -169,7 +169,7 @@ bool ozansKinect::Kinect::getKinectShutdown() const
 //
 //	PURPOSE:
 //
-//	COMMENTS:
+//	COMMENTS(TR):
 //
 Vector4 ozansKinect::Kinect::setCoordinate2Sens(Vector4 data)
 {
@@ -186,14 +186,14 @@ Vector4 ozansKinect::Kinect::setCoordinate2Sens(Vector4 data)
 //
 //	PURPOSE:	Transform coordinate 3 decimal number
 //
-//	COMMENTS:	asd
+//	COMMENTS(TR):	asd
 //
 Vector4 ozansKinect::Kinect::setCoordinate3Sens(Vector4 data)
 {
-	data.w = data.w * 100;
-	data.x = data.x * 100;
-	data.y = data.y * 100;
-	data.z = data.z * 100;
+	data.w = data.w * 1000;
+	data.x = data.x * 1000;
+	data.y = data.y * 1000;
+	data.z = data.z * 1000;
 
 	return data;
 }
@@ -213,7 +213,7 @@ int ozansKinect::Kinect::getCoordinateY() const
 //
 //	PURPOSE:
 //
-//	COMMENTS:
+//	COMMENTS(TR):
 //
 bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 {

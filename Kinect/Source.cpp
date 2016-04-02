@@ -6,20 +6,17 @@
 
 #include "Kinect.h"
 
-using namespace ozansKinect;
-
 int main()
 {
-	Kinect kinect;
+	ozansKinect::Kinect kinect;
 	kinect.Initialize();
 
 	// Eğer el hareketi belirtilen coordinatlara gelirse programdan çıkacak.
-	while (kinect.getKinectExit())
+	while (!kinect.getKinectShutdown())
 	{
 		kinect.ProcessSkeleton();
 		system("cls");
 	}
 
-	kinect.~Kinect();
 	return 0;
 }

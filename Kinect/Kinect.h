@@ -5,31 +5,42 @@ namespace ozansKinect
 {
 
 #define LATECY 1000
+	struct _coordinate
+	{
+		int x, y;
+	};
 
 	class Kinect
 	{
+
 	public:
 		Kinect();
 		~Kinect();
 
-		HRESULT Initialize();
+		void Initialize();
 
 		void ProcessSkeleton();
 
-		// Kinect Exit method set/get
-		void setKinectExit(const bool x);
-		bool getKinectExit() const;
+		// Kinect Shutdown Methods and Variable
+		bool KinectExit(const Vector4);
+		void setKinectShutdown(const bool);
+		bool getKinectShutdown() const;
 
-		// Coordinate Converter method set/get
-		void setCoordinate2Sens(const double x, const double y);
-		void setCoordinate3Sens(const double x, const double y);
+		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
+		Vector4 setCoordinate2Sens(Vector4);
+		Vector4 setCoordinate3Sens(Vector4);
 		int getCoordinateX() const;
 		int getCoordinateY() const;
 
+		bool connectionStatus(HRESULT);
+
 	private:
 		INuiSensor* pNuiSensor;
-		bool kinectWorkingStatus;
-		int coordinateX, coordinateY;
+		bool kinectShutdown;
+		int coordinateW, coordinateX, coordinateY, coordinateZ;
+
+		// Private struct example
+		_coordinate coordinate;
 	};
 }
 

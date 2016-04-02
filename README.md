@@ -1,2 +1,2 @@
 # Kinect
-C++ Kinect Programming
+### Asst. Prof. Yusuf Sinan Akgül

@@ -147,8 +147,8 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 bool ozansKinect::Kinect::KinectExit(const Vector4 leftHand, const Vector4 rightHand)
 {
-	if (-5 <= (int)leftHand.x && (int)leftHand.x <= 5 && -5 <= (int)leftHand.y && (int)leftHand.y <= 5)
-		if (-5 <= (int)rightHand.x && (int)rightHand.x <= 5 && -5 <= (int)rightHand.y && (int)rightHand.y <= 5)
+	if (-10 <= (int)leftHand.x && (int)leftHand.x <= 10 && -10 <= (int)leftHand.y && (int)leftHand.y <= 10)
+		if (-10 <= (int)rightHand.x && (int)rightHand.x <= 10 && -10 <= (int)rightHand.y && (int)rightHand.y <= 10)
 			return true;
 
 	return false;

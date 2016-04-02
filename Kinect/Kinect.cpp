@@ -9,9 +9,7 @@
 
 #include "Kinect.h"
 
-using namespace ozansKinect;
-
-Kinect::Kinect()
+ozansKinect::Kinect::Kinect()
 	:pNuiSensor(NULL),
 	kinectWorkingStatus(true),
 	coordinateX(0), coordinateY(0)
@@ -19,13 +17,13 @@ Kinect::Kinect()
 }
 
 
-Kinect::~Kinect()
+ozansKinect::Kinect::~Kinect()
 {
 	pNuiSensor->NuiShutdown();
 	//pNuiSensor = nullptr; // neden olmuyor ?
 }
 
-HRESULT Kinect::Initialize()
+HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
 
@@ -74,7 +72,7 @@ HRESULT Kinect::Initialize()
 	return hr;
 }
 
-void Kinect::ProcessSkeleton()
+void ozansKinect::Kinect::ProcessSkeleton()
 {
 	// Create skeleton frame
 	NUI_SKELETON_FRAME skeletonFrame = { 0 };
@@ -108,17 +106,17 @@ void Kinect::ProcessSkeleton()
 	return;
 }
 
-void Kinect::setKinectExit(const bool x)
+void ozansKinect::Kinect::setKinectExit(const bool x)
 {
 	kinectWorkingStatus = x;
 }
 
-bool Kinect::getKinectExit() const
+bool ozansKinect::Kinect::getKinectExit() const
 {
 	return kinectWorkingStatus;
 }
 
-void Kinect::setCoordinate2Sens(const double x, const double y)
+void ozansKinect::Kinect::setCoordinate2Sens(const double x, const double y)
 {
 	coordinateX = x * 100;
 	coordinateY = y * 100;
@@ -131,12 +129,12 @@ void ozansKinect::Kinect::setCoordinate3Sens(const double x, const double y)
 
 }
 
-int Kinect::getCoordinateX() const
+int ozansKinect::Kinect::getCoordinateX() const
 {
 	return coordinateX;
 }
 
-int Kinect::getCoordinateY() const
+int ozansKinect::Kinect::getCoordinateY() const
 {
 	return coordinateY;
 }

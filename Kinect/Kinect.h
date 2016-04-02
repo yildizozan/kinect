@@ -8,6 +8,7 @@ namespace ozansKinect
 
 	class Kinect
 	{
+
 	public:
 		Kinect();
 		~Kinect();

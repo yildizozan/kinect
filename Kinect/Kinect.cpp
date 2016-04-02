@@ -77,6 +77,9 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	// Create skeleton frame
 	NUI_SKELETON_FRAME skeletonFrame = { 0 };
 
+	// Analysis array
+	Vector4 analysisDataHandRight;
+
 	HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATECY, &skeletonFrame);
 	if (FAILED(hr))
 	{
@@ -92,8 +95,10 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 		if (NUI_SKELETON_TRACKED == trackingState)
 		{
-			// We're traking the skeleton, write coordinate
-			setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT].x, skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT].y);
+			// We're traking the right hand skeleton, write coordinate
+			analysisDataHandRight = skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT];
+
+			setCoordinate2Sens(analysisDataHandRight.x, analysisDataHandRight.y);
 			std::cout << getCoordinateX() << std::endl << getCoordinateY() << std::endl;
 			if (getCoordinateY() == 0 && getCoordinateX() == 0)
 			{

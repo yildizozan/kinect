@@ -84,7 +84,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	}
 
 	// Smooth skeleton data
-	//pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
+	pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
 
 	for (int i = 0; i < NUI_SKELETON_COUNT; i++)
 	{

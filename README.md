@@ -1,2 +1,3 @@
 # Kinect
-C++ Kinect Programming
+### Assoc. Prof. Yusuf Sinan Akgül
+Kinect Programming with C++

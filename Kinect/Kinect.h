@@ -22,7 +22,7 @@ namespace ozansKinect
 		void ProcessSkeleton();
 
 		// Kinect Shutdown Methods and Variable
-		bool KinectExit(const Vector4);
+		bool KinectExit(const Vector4, const Vector4);
 		void setKinectShutdown(const bool);
 		bool getKinectShutdown() const;
 

@@ -1,4 +1,4 @@
-// Fundamentals
+﻿// Fundamentals
 #include <iostream>
 
 // Windows headers
@@ -22,18 +22,24 @@ ozansKinect::Kinect::~Kinect()
 	if (pNuiSensor)
 	{
 		pNuiSensor->NuiShutdown();
+		std::cout << "Bye Bye! :)" << std::endl;
 	}
-	std::cout << "Kinect not found." << std::endl;
+	else if (pNuiSensor == nullptr)
+	{
+		std::cout << "Kinect not found." << std::endl;
+	}
 	system("PAUSE");
-	//pNuiSensor = nullptr; // neden olmuyor ?
 }
 
 //
-//	FUNCTION: Initialize
+//	FUNCTION:	Initialize
 //
-//	PURPOSE:
+//	PURPOSE:	
 //
-//	COMMENTS:
+//	COMMENTS:	Sisteme takılı olan Kinect sayısına bakacak
+//				her Kinect için sırayla bağlanmaya çalışacak,
+//				eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
+//				Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
 //
 void ozansKinect::Kinect::Initialize()
 {
@@ -96,6 +102,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 	// Analysis data variable
 	Vector4 analysisDataHandRight;
+	Vector4 analysisDataHandLeft;
 
 	HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATECY, &skeletonFrame);
 	if (FAILED(hr))
@@ -112,13 +119,16 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 		if (NUI_SKELETON_TRACKED == trackingState)
 		{
-			// We're traking the right hand skeleton, write coordinate
+			// We're traking the right hand and left hand skeleton, write coordinate
 			analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
+			analysisDataHandLeft = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
 
-			std::cout << analysisDataHandRight.x << std::endl << analysisDataHandRight.y << std::endl;
+			std::cout << (int)analysisDataHandRight.x << " - " << (int)analysisDataHandRight.y << std::endl;
+			std::cout << std::endl;
+			std::cout << (int)analysisDataHandLeft.x << " - " << (int)analysisDataHandLeft.y << std::endl;
 
 			// Exit control
-			if (KinectExit(setCoordinate2Sens(analysisDataHandRight)))
+			if (KinectExit(analysisDataHandRight, analysisDataHandLeft))
 			{
 				setKinectShutdown(true);
 			}
@@ -135,12 +145,11 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 //	COMMENTS:
 //
-bool ozansKinect::Kinect::KinectExit(const Vector4 data)
+bool ozansKinect::Kinect::KinectExit(const Vector4 leftHand, const Vector4 rightHand)
 {
-	if (-5 <= data.x && data.x <= 5 && -5 <= data.y && data.y <= 5)
-	{
-		return true;
-	}
+	if (-5 <= (int)leftHand.x && (int)leftHand.x <= 5 && -5 <= (int)leftHand.y && (int)leftHand.y <= 5)
+		if (-5 <= (int)rightHand.x && (int)rightHand.x <= 5 && -5 <= (int)rightHand.y && (int)rightHand.y <= 5)
+			return true;
 
 	return false;
 }

@@ -20,7 +20,7 @@ ozansKinect::Kinect::Kinect()
 ozansKinect::Kinect::~Kinect()
 {
 	pNuiSensor->NuiShutdown();
-	//pNuiSensor = nullptr; // neden olmuyor ?
+	//pNuiSensor = nullptr; // neden olmuyor ? df
 }
 
 HRESULT ozansKinect::Kinect::Initialize()

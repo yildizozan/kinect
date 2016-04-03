@@ -9,8 +9,8 @@
 int main()
 {
 	ozansKinect::Kinect kinect;
+	kinect.Initialize();
 	kinect.ProcessSkeleton();
-	kinect.~Kinect();
 
 
 	return 0;

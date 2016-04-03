@@ -5,11 +5,6 @@ namespace ozansKinect
 {
 
 #define LATECY 0
-	
-	struct _coordinate
-	{
-		int x, y;
-	};
 
 	class Kinect
 	{
@@ -17,7 +12,8 @@ namespace ozansKinect
 	public:
 		Kinect();
 		~Kinect();
-
+		
+		void Initialize();
 		void ProcessSkeleton();
 		void SkeletonPositions(const NUI_SKELETON_DATA &);
 
@@ -29,8 +25,6 @@ namespace ozansKinect
 		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
 		Vector4 setCoordinate2Sens(Vector4 &);
 		Vector4 setCoordinate3Sens(Vector4 &);
-		int getCoordinateX() const;
-		int getCoordinateY() const;
 
 		bool connectionStatus(HRESULT);
 		bool connectionStatus(bool);
@@ -39,8 +33,6 @@ namespace ozansKinect
 		INuiSensor* pNuiSensor;
 		bool kinectShutdown;
 
-		// Private struct example
-		_coordinate coordinate;
 	};
 }
 

@@ -34,10 +34,12 @@ ozansKinect::Kinect::~Kinect()
 //
 //	PURPOSE:	
 //
-//	COMMENTS:	Sisteme takılı olan Kinect sayısına bakacak
-//				her Kinect için sırayla bağlanmaya çalışacak,
-//				eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
-//				Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
+//	COMMENTS(TR):
+//		
+//		Sisteme takılı olan Kinect sayısına bakacak
+//		her Kinect için sırayla bağlanmaya çalışacak,
+//		eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
+//		Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
 //
 void ozansKinect::Kinect::Initialize()
 {
@@ -150,7 +152,7 @@ void ozansKinect::Kinect::SkeletonPositions(const NUI_SKELETON_DATA &skeletonDat
 }
 
 //
-//	FUNCTION:	KinectShutdown
+//	FUNCTION:	KinectExit
 //
 //	PURPOSE:	
 //
@@ -176,7 +178,7 @@ bool ozansKinect::Kinect::getKinectShutdown() const
 }
 
 //
-//	FUNCTION:	Coordinate2Sens
+//	FUNCTION:	setCoordinate2Sens
 //
 //	PURPOSE:	
 //
@@ -193,7 +195,7 @@ Vector4 ozansKinect::Kinect::setCoordinate2Sens(Vector4 &data)
 }
 
 //
-//	FUNCTION:	Coordinate3Sens
+//	FUNCTION:	setCoordinate3Sens
 //
 //	PURPOSE:	Transform coordinate 3 decimal number
 //

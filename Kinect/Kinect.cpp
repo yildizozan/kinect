@@ -13,6 +13,18 @@ ozansKinect::Kinect::Kinect()
 	:pNuiSensor(NULL),
 	kinectShutdown(false)
 {
+/*
+	INuiSensor *tempNuiSensor;
+
+	int iNuiSensorCount = 0;
+
+	HRESULT hr = NuiGetSensorCount(&iNuiSensorCount);
+
+	for (unsigned int i = 0; i < iNuiSensorCount; i++)
+	{
+
+}
+*/
 }
 
 
@@ -29,6 +41,7 @@ ozansKinect::Kinect::~Kinect()
 	}
 	system("PAUSE");
 }
+
 //
 //	FUNCTION:	Initialize
 //
@@ -37,37 +50,38 @@ ozansKinect::Kinect::~Kinect()
 //	COMMENTS(TR):
 //		
 //		Sisteme takılı olan Kinect sayısına bakacak
-//		her Kinect için sırayla bağlanmaya çalışacak,
+//		bağlı olan her Kinect için sırayla bağlanmaya çalışacak,
 //		eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
 //		Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
 //
-void ozansKinect::Kinect::Initialize()
+HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
 
 	int iSensorCount = 0;
-
 	HRESULT hr = NuiGetSensorCount(&iSensorCount);
-	if (connectionStatus(hr)) return;
-
+	if (FAILED(hr))
+	{
+		return hr;
+	}
 
 	// Look at each Kinect sensor
-	for (int i = 0; i < iSensorCount; i++)
+	for (int i = 0; i < iSensorCount; ++i)
 	{
 		// Create the sensor so we can check status,
 		// if we can't create it, move on
 		hr = NuiCreateSensorByIndex(i, &tempNuiSensor);
-		if (connectionStatus(hr)) return;
+		if (FAILED(hr)) continue;
 
 		// Get the status of the sensor, and if connected
 		// then we can initialize it
 		hr = tempNuiSensor->NuiStatus();
-		if (connectionStatus(hr)) return;
-		else
+		if (S_OK == hr)
 		{
 			pNuiSensor = tempNuiSensor;
 			break;
 		}
+
 
 		// This sensor wasn't OK,
 		// so release it since we're not using it
@@ -77,19 +91,20 @@ void ozansKinect::Kinect::Initialize()
 	if (pNuiSensor != NULL)
 	{
 		hr = pNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
-		if (connectionStatus(hr)) return;
+		if (SUCCEEDED(hr))
+		{
+			hr = pNuiSensor->NuiSkeletonTrackingEnable(NULL, NUI_SKELETON_TRACKING_FLAG_ENABLE_SEATED_SUPPORT);
+		}
 
-		hr = pNuiSensor->NuiSkeletonTrackingEnable(NULL, NUI_SKELETON_TRACKING_FLAG_ENABLE_SEATED_SUPPORT);
-		if (connectionStatus(hr)) return;
 	}
 
 	if (pNuiSensor == nullptr)
 	{
 		hr = E_FAIL;
-		if (connectionStatus(hr)) return;
+		return hr;
 	}
 
-	return;
+	return hr;
 }
 
 //

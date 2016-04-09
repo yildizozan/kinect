@@ -13,7 +13,7 @@ namespace ozansKinect
 		Kinect();
 		~Kinect();
 		
-		void Initialize();
+		HRESULT Initialize();
 		void ProcessSkeleton();
 		void SkeletonPositions(const NUI_SKELETON_DATA &);
 

@@ -6,11 +6,6 @@ namespace ozansKinect
 
 #define LATECY 0
 	
-	struct _coordinate
-	{
-		int x, y;
-	};
-
 	class Kinect
 	{
 
@@ -18,7 +13,7 @@ namespace ozansKinect
 		Kinect();
 		~Kinect();
 
-		void Initialize();
+		HRESULT Initialize();
 
 		void ProcessSkeleton();
 
@@ -40,8 +35,6 @@ namespace ozansKinect
 		bool kinectShutdown;
 		int coordinateW, coordinateX, coordinateY, coordinateZ;
 
-		// Private struct example
-		_coordinate coordinate;
 	};
 }
 

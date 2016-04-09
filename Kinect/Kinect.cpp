@@ -41,14 +41,14 @@ ozansKinect::Kinect::~Kinect()
 //				eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
 //				Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
 //
-void ozansKinect::Kinect::Initialize()
+HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
 
 	int iSensorCount = 0;
 
 	HRESULT hr = NuiGetSensorCount(&iSensorCount);
-	if (connectionStatus(hr)) return;
+	if (FAILED(hr)) return hr;
 
 
 	// Look at each Kinect sensor
@@ -57,13 +57,13 @@ void ozansKinect::Kinect::Initialize()
 		// Create the sensor so we can check status,
 		// if we can't create it, move on
 		hr = NuiCreateSensorByIndex(i, &tempNuiSensor);
-		if (connectionStatus(hr)) return;
+		if (FAILED(hr)) continue;
+
 
 		// Get the status of the sensor, and if connected
 		// then we can initialize it
 		hr = tempNuiSensor->NuiStatus();
-		if (connectionStatus(hr)) return;
-		else
+		if (S_OK == hr)
 		{
 			pNuiSensor = tempNuiSensor;
 			break;
@@ -77,15 +77,18 @@ void ozansKinect::Kinect::Initialize()
 	if (pNuiSensor != NULL)
 	{
 		hr = pNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
+		if (SUCCEEDED(hr))
+		{
+
+		}
 	}
 
-	if (pNuiSensor == nullptr)
+	if (pNuiSensor == nullptr || pNuiSensor == NULL)
 	{
 		hr = E_FAIL;
-		if (connectionStatus(hr)) return;
 	}
 
-	return;
+	return hr;
 }
 
 //

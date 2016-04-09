@@ -10,13 +10,8 @@ int main()
 {
 	ozansKinect::Kinect kinect;
 	kinect.Initialize();
+	kinect.ProcessSkeleton();
 
-	// Eğer el hareketi belirtilen coordinatlara gelirse programdan çıkacak.
-	while (!kinect.getKinectShutdown())
-	{
-		kinect.ProcessSkeleton();
-		system("cls");
-	}
 
 	return 0;
 }

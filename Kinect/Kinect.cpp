@@ -14,7 +14,8 @@ ozansKinect::Kinect::Kinect()
 	kinectShutdown(false),
 	coordinateX(0), coordinateY(0)
 {
-}
+
+} // end constructor
 
 
 ozansKinect::Kinect::~Kinect()
@@ -22,19 +23,30 @@ ozansKinect::Kinect::~Kinect()
 	if (pNuiSensor)
 	{
 		pNuiSensor->NuiShutdown();
+
+		std::cout << "Bye bye.." << std::endl;
+
 	}
-	std::cout << "Kinect not found." << std::endl;
+
+	if (pNuiSensor == nullptr)
+	{
+		std::cout << "Kinect not found." << std::endl;
+	}
 	system("PAUSE");
-	//pNuiSensor = nullptr; // neden olmuyor ?
-}
+
+} // end destructors
 
 //
-//	FUNCTION: Initialize
+//	FUNCTION:	Initialize
 //
-//	PURPOSE:
+//	PURPOSE:	
 //
-//	COMMENTS:
+//	COMMENTS(TR):
 //
+//		Sisteme takılı olan Kinect sayısına bakacak
+//		her Kinect için sırayla bağlanmaya çalışacak,
+//		eğer bağlantı sağlanamaz ise bağlı kinect bulamayacak program sonlanacak.
+//		Eğer bağlı kinect bulursa o kinect cihazına bağlanacak ve işleme geçecek.
 HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
@@ -85,7 +97,8 @@ HRESULT ozansKinect::Kinect::Initialize()
 	}
 
 	return hr;
-}
+
+} // end function Initialize
 
 //
 //	FUNCTION: ProcessSkeleton
@@ -101,34 +114,44 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 	// Analysis data variable
 	Vector4 analysisDataHandRight;
+	Vector4 analysisDataHandLeft;
 
-	HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATECY, &skeletonFrame);
-	if (FAILED(hr))
+	while (!getKinectShutdown())
 	{
-		return;
-	}
-
-	// Smooth skeleton data
-	pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
-
-	for (int i = 0; i < NUI_SKELETON_COUNT; i++)
-	{
-		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
-
-		if (NUI_SKELETON_TRACKED == trackingState)
+		// Prepare next frame
+		HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATECY, &skeletonFrame);
+		if (FAILED(hr))
 		{
-			// We're traking the right hand skeleton, write coordinate
-			analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
-
-			std::cout << analysisDataHandRight.x << std::endl << analysisDataHandRight.y << std::endl;
-
-			// Exit control
-			if (KinectExit(setCoordinate2Sens(analysisDataHandRight)))
-			{
-				setKinectShutdown(true);
-			}
+			return;
 		}
-	}
+
+		// Smooth skeleton data
+		pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
+
+		for (int i = 0; i < NUI_SKELETON_COUNT; i++)
+		{
+			NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
+
+			if (NUI_SKELETON_TRACKED == trackingState)
+			{
+				// We're traking the right hand and left hand skeleton, write coordinate
+				analysisDataHandLeft = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
+				analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
+
+				std::cout << (int)analysisDataHandLeft.x << " - " << (int)analysisDataHandLeft.y << std::endl;
+				std::cout << std::endl;
+				std::cout << (int)analysisDataHandRight.x << " - " << (int)analysisDataHandRight.y << std::endl;
+
+				KinectExit(analysisDataHandLeft, analysisDataHandRight);
+
+			} // end if
+
+		} // end for
+
+		// We can see koord
+		system("cls");
+
+	} // end while
 
 	return;
 }
@@ -140,14 +163,13 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 //	COMMENTS:
 //
-bool ozansKinect::Kinect::KinectExit(const Vector4 data)
+void ozansKinect::Kinect::KinectExit(const Vector4 &leftHand, const Vector4 &rightHand)
 {
-	if (-5 <= data.x && data.x <= 5 && -5 <= data.y && data.y <= 5)
-	{
-		return true;
-	}
+	if (-10 <= leftHand.x && leftHand.x <= 10 && -10 <= leftHand.y && leftHand.y <= 10)
+		if (-10 <= rightHand.x && rightHand.x <= 10 && -10 <= rightHand.y && rightHand.y <= 10)
+			setKinectShutdown(true);
 
-	return false;
+	return;
 }
 
 void ozansKinect::Kinect::setKinectShutdown(const bool value)

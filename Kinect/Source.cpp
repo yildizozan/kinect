@@ -12,11 +12,7 @@ int main()
 	kinect.Initialize();
 
 	// Eğer el hareketi belirtilen coordinatlara gelirse programdan çıkacak.
-	while (!kinect.getKinectShutdown())
-	{
-		kinect.ProcessSkeleton();
-		system("cls");
-	}
+	kinect.ProcessSkeleton();
 
 	return 0;
 }

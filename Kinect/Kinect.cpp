@@ -123,8 +123,8 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	Vector4 analysisDataHandLeft;
 
 	// Frame Counter
-	DWORD frameCounter = 0;
-	DWORD frame[30];
+	int frameCounter = 0;
+	int frame[30];
 
 	while (!getKinectShutdown())
 	{
@@ -151,13 +151,13 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				analysisDataHandLeft = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
 				analysisDataHandRight = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-				//KinectExit(analysisDataHandLeft, analysisDataHandRight); // PROBLEMA !
+				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
 				printLeftHandCoord(skeletonData.SkeletonPositions);
 				std::cout << std::endl;
 				printRightHandCoord(skeletonData.SkeletonPositions);
 
-				if (frameCounter == 30)
+/*				if (frameCounter == 30)
 				{
 					rightHandShake(frame);
 				}
@@ -166,7 +166,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 					frame[frameCounter];
 					frameCounter++;
 				}
-
+*/
 			} // end if
 
 		} // end for
@@ -227,7 +227,7 @@ bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 	return false;
 }
 
-void ozansKinect::Kinect::rightHandShake(DWORD rightHand[30])
+void ozansKinect::Kinect::rightHandShake(int rightHand[30])
 {
 	
 	

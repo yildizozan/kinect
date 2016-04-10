@@ -17,8 +17,8 @@ namespace ozansKinect
 		bool fallibility(const int &, const int &, const Vector4 &);
 
 		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
-		Vector4 getCoordinate2Sens(Vector4 &);
-		Vector4 getCoordinate3Sens(Vector4 &);
+		Vector4 getCoordinate2Sens(Vector4);
+		Vector4 getCoordinate3Sens(Vector4);
 
 		void setCoordinateW(int newW);
 		int getCoordinateW() const;

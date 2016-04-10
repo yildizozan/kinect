@@ -34,6 +34,11 @@ namespace ozansKinect
 
 		bool connectionStatus(HRESULT);
 
+		// Gestures
+		void rightHandShake(int rightHand[30]);
+
+		// Math
+		bool fallibility(const int &, int, const int &);
 	private:
 		INuiSensor* pNuiSensor;
 		bool kinectShutdown;

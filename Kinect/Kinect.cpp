@@ -32,7 +32,8 @@ ozansKinect::Kinect::~Kinect()
 	{
 		std::cout << "Kinect not found." << std::endl;
 	}
-	system("PAUSE");
+	
+	Sleep(2000);
 
 } // end destructors
 
@@ -116,6 +117,10 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	Vector4 analysisDataHandRight;
 	Vector4 analysisDataHandLeft;
 
+	// Frame Counter
+	int frameCounter = 0;
+	int frame[30];
+
 	while (!getKinectShutdown())
 	{
 		// Prepare next frame
@@ -144,6 +149,21 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
+				if (fallibility(40, 10, analysisDataHandRight.x))
+				{
+					std::cout << "---------------";
+				}
+/*
+				if (frameCounter == 30)
+				{
+					rightHandShake(frame);
+				}
+				else
+				{
+					frame[frameCounter];
+					frameCounter++;
+				}
+*/
 			} // end if
 
 		} // end for
@@ -240,6 +260,32 @@ bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 		setKinectShutdown(true);
 		return true;
 	}
+
+	return false;
+}
+
+void ozansKinect::Kinect::rightHandShake(int rightHand[30])
+{
+	
+
+	return;
+}
+
+//
+//	FUNCTION:	fallibility
+//
+//	PURPOSE:	Percent of number
+//
+//	COMMENTS(TR):
+//
+//		Verilen yanılma paylarına göre sayı arasında bir yerde mi diye control eder.
+//
+bool ozansKinect::Kinect::fallibility(const int &baseNumber, int percent, const int &currentNumber)
+{
+	percent = 100 / percent;
+
+	if ((baseNumber - percent) <= currentNumber && currentNumber <= (baseNumber + percent))
+		return true;
 
 	return false;
 }

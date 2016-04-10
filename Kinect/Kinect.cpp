@@ -149,11 +149,6 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
-				if (fallibility(40, 10, analysisDataHandRight.x))
-				{
-					std::cout << "---------------";
-				}
-/*
 				if (frameCounter == 30)
 				{
 					rightHandShake(frame);
@@ -163,7 +158,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 					frame[frameCounter];
 					frameCounter++;
 				}
-*/
+
 			} // end if
 
 		} // end for
@@ -185,8 +180,10 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 void ozansKinect::Kinect::KinectExit(const Vector4 &leftHand, const Vector4 &rightHand)
 {
-	if (-10 <= leftHand.x && leftHand.x <= 10 && -10 <= leftHand.y && leftHand.y <= 10)
-		if (-10 <= rightHand.x && rightHand.x <= 10 && -10 <= rightHand.y && rightHand.y <= 10)
+	const int percent = 10;
+
+	if (fallibility(0, percent, leftHand))
+		if (fallibility(0, percent, rightHand))
 			setKinectShutdown(true);
 
 	return;
@@ -280,12 +277,19 @@ void ozansKinect::Kinect::rightHandShake(int rightHand[30])
 //
 //		Verilen yanılma paylarına göre sayı arasında bir yerde mi diye control eder.
 //
-bool ozansKinect::Kinect::fallibility(const int &baseNumber, int percent, const int &currentNumber)
+bool ozansKinect::Kinect::fallibility(const int &baseNumber, const int &percent, const int &currentNumber)
 {
-	percent = 100 / percent;
-
 	if ((baseNumber - percent) <= currentNumber && currentNumber <= (baseNumber + percent))
 		return true;
+
+	return false;
+}
+
+bool ozansKinect::Kinect::fallibility(const int &baseNumber, const int &percent, const Vector4 &organ)
+{
+	if ((baseNumber - percent) <= organ.x && organ.x <= (baseNumber + percent))
+		if ((baseNumber - percent) <= organ.y && organ.y <= (baseNumber + percent))
+			return true;
 
 	return false;
 }

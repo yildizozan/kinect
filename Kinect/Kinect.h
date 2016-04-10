@@ -38,7 +38,8 @@ namespace ozansKinect
 		void rightHandShake(int rightHand[30]);
 
 		// Math
-		bool fallibility(const int &, int, const int &);
+		bool fallibility(const int &, const int &, const int &);
+		bool fallibility(const int &, const int &, const Vector4 &);
 	private:
 		INuiSensor* pNuiSensor;
 		bool kinectShutdown;

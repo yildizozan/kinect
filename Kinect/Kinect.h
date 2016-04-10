@@ -17,32 +17,37 @@ namespace ozansKinect
 		Kinect();
 		~Kinect();
 
+		Kinect desf()
+		{
+
+		}
+
 		HRESULT Initialize();
 
-		VOID ProcessSkeleton();
+		void ProcessSkeleton();
 
 		// Kinect Shutdown Methods and Variable
-		VOID KinectExit(CONST Vector4 &, CONST Vector4 &);
-		VOID setKinectShutdown(CONST BOOL);
-		BOOL getKinectShutdown() CONST;
+		void KinectExit(const Vector4 &, const Vector4 &);
+		void setKinectShutdown(const bool);
+		bool getKinectShutdown() const;
 
 		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
 		Vector4 setCoordinate2Sens(Vector4);
 		Vector4 setCoordinate3Sens(Vector4);
-		DWORD getCoordinateX() CONST;
-		DWORD getCoordinateY() CONST;
+		DWORD getCoordinateX() const;
+		DWORD getCoordinateY() const;
 
-		BOOL connectionStatus(HRESULT);
+		bool connectionStatus(HRESULT);
 
 		// Gestures
-		VOID rightHandShake(DWORD rightHand[30]);
+		void rightHandShake(DWORD rightHand[30]);
 
 		// Math
-		BOOL fallibility(CONST DWORD &, CONST DWORD &, CONST DWORD &);
-		BOOL fallibility(CONST DWORD &, CONST DWORD &, CONST Vector4 &);
+		bool fallibility(const DWORD &, const DWORD &, const DWORD &);
+		bool fallibility(const DWORD &, const DWORD &, const Vector4 &);
 	private:
 		INuiSensor* pNuiSensor;
-		BOOL kinectShutdown;
+		bool kinectShutdown;
 		DWORD coordinateW, coordinateX, coordinateY, coordinateZ;
 
 		// Private struct example

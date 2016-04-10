@@ -15,7 +15,7 @@ ozansKinect::Kinect::Kinect()
 	coordinateX(0), coordinateY(0)
 {
 
-} // end CONSTructor
+} // end constructor
 
 
 ozansKinect::Kinect::~Kinect()
@@ -108,7 +108,7 @@ HRESULT ozansKinect::Kinect::Initialize()
 //
 //	COMMENTS:
 //
-VOID ozansKinect::Kinect::ProcessSkeleton()
+void ozansKinect::Kinect::ProcessSkeleton()
 {
 	// Create skeleton frame
 	NUI_SKELETON_FRAME skeletonFrame = { 0 };
@@ -143,9 +143,9 @@ VOID ozansKinect::Kinect::ProcessSkeleton()
 				analysisDataHandLeft = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
 				analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-				std::cout << (DWORD)analysisDataHandLeft.x << " - " << (DWORD)analysisDataHandLeft.y << std::endl;
+				std::cout << (INT8)analysisDataHandLeft.x << " - " << (INT8)analysisDataHandLeft.y << std::endl;
 				std::cout << std::endl;
-				std::cout << (DWORD)analysisDataHandRight.x << " - " << (DWORD)analysisDataHandRight.y << std::endl;
+				std::cout << (INT8)analysisDataHandRight.x << " - " << (INT8)analysisDataHandRight.y << std::endl;
 
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
@@ -178,9 +178,9 @@ VOID ozansKinect::Kinect::ProcessSkeleton()
 //
 //	COMMENTS:
 //
-VOID ozansKinect::Kinect::KinectExit(CONST Vector4 &leftHand, CONST Vector4 &rightHand)
+void ozansKinect::Kinect::KinectExit(const Vector4 &leftHand, const Vector4 &rightHand)
 {
-	CONST DWORD percent = 10;
+	const DWORD percent = 10;
 
 	if (fallibility(0, percent, leftHand))
 		if (fallibility(0, percent, rightHand))
@@ -189,12 +189,12 @@ VOID ozansKinect::Kinect::KinectExit(CONST Vector4 &leftHand, CONST Vector4 &rig
 	return;
 }
 
-VOID ozansKinect::Kinect::setKinectShutdown(CONST BOOL value)
+void ozansKinect::Kinect::setKinectShutdown(const bool value)
 {
 	kinectShutdown = value;
 }
 
-BOOL ozansKinect::Kinect::getKinectShutdown() CONST
+bool ozansKinect::Kinect::getKinectShutdown() const
 {
 	return kinectShutdown;
 }
@@ -233,12 +233,12 @@ Vector4 ozansKinect::Kinect::setCoordinate3Sens(Vector4 data)
 	return data;
 }
 
-DWORD ozansKinect::Kinect::getCoordinateX() CONST
+DWORD ozansKinect::Kinect::getCoordinateX() const
 {
 	return coordinateX;
 }
 
-DWORD ozansKinect::Kinect::getCoordinateY() CONST
+DWORD ozansKinect::Kinect::getCoordinateY() const
 {
 	return coordinateY;
 }
@@ -250,7 +250,7 @@ DWORD ozansKinect::Kinect::getCoordinateY() CONST
 //
 //	COMMENTS:
 //
-BOOL ozansKinect::Kinect::connectionStatus(HRESULT hr)
+bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 {
 	if (FAILED(hr))
 	{
@@ -261,12 +261,14 @@ BOOL ozansKinect::Kinect::connectionStatus(HRESULT hr)
 	return false;
 }
 
-VOID ozansKinect::Kinect::rightHandShake(DWORD rightHand[30])
+void ozansKinect::Kinect::rightHandShake(DWORD rightHand[30])
 {
 	
 
 	return;
 }
+
+
 
 //
 //	FUNCTION:	fallibility
@@ -277,18 +279,19 @@ VOID ozansKinect::Kinect::rightHandShake(DWORD rightHand[30])
 //
 //		Verilen yanılma paylarına göre sayı arasında bir yerde mi diye control eder.
 //
-BOOL ozansKinect::Kinect::fallibility(CONST DWORD &baseNumber, CONST DWORD &percent, CONST DWORD &currentNumber)
+bool ozansKinect::Kinect::fallibility(const DWORD &border, const DWORD &percent, const DWORD &current)
 {
-	if ((baseNumber - percent) <= currentNumber && currentNumber <= (baseNumber + percent))
+	if ((border - percent) <= current && current <= (border + percent))
 		return true;
 
 	return false;
 }
 
-BOOL ozansKinect::Kinect::fallibility(CONST DWORD &baseNumber, CONST DWORD &percent, CONST Vector4 &organ)
+bool ozansKinect::Kinect::fallibility(const DWORD &border, const DWORD &percent, const Vector4 &organ)
+
 {
-	if ((baseNumber - percent) <= organ.x && organ.x <= (baseNumber + percent))
-		if ((baseNumber - percent) <= organ.y && organ.y <= (baseNumber + percent))
+	if ((border - percent) <= organ.x && organ.x <= (border + percent))
+		if ((border - percent) <= organ.y && organ.y <= (border + percent))
 			return true;
 
 	return false;

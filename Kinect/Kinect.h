@@ -45,6 +45,8 @@ namespace ozansKinect
 		// Math
 		bool fallibility(const DWORD &, const DWORD &, const DWORD &);
 		bool fallibility(const DWORD &, const DWORD &, const Vector4 &);
+		void dizi(Vector4[]);
+
 	private:
 		INuiSensor* pNuiSensor;
 		bool kinectShutdown;

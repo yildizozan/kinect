@@ -143,11 +143,12 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				analysisDataHandLeft = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
 				analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-				std::cout << (INT8)analysisDataHandLeft.x << " - " << (INT8)analysisDataHandLeft.y << std::endl;
 				std::cout << std::endl;
-				std::cout << (INT8)analysisDataHandRight.x << " - " << (INT8)analysisDataHandRight.y << std::endl;
+				std::cout << (int)analysisDataHandRight.x << " - " << (int)analysisDataHandRight.y << std::endl;
 
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
+
+				dizi(skeletonFrame.SkeletonData[i].SkeletonPositions);
 
 				if (frameCounter == 30)
 				{
@@ -295,4 +296,15 @@ bool ozansKinect::Kinect::fallibility(const DWORD &border, const DWORD &percent,
 			return true;
 
 	return false;
+}
+
+void ozansKinect::Kinect::dizi(Vector4 a[])
+{
+	Vector4 rightHand = setCoordinate2Sens(a[NUI_SKELETON_POSITION_HAND_RIGHT]);
+	std::cout << "w: " << rightHand.w << std::endl
+		<< "x: " << rightHand.x << std::endl
+		<< "y: " << rightHand.y << std::endl
+		<< "z: " << rightHand.z << std::endl;
+
+	return;
 }

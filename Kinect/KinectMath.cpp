@@ -8,8 +8,6 @@
 #include "NuiApi.h"
 
 // My Classes
-#include "Organ.h"
-#include "Kinect.h"
 #include "KinectMath.h"
 
 
@@ -31,7 +29,7 @@ ozansKinect::KinectMath::~KinectMath()
 //
 //		Verilen yanılma paylarına göre sayı arasında bir yerde mi diye control eder.
 //
-bool ozansKinect::KinectMath::fallibility(const DWORD &border, const DWORD &percent, const DWORD &current)
+bool ozansKinect::KinectMath::fallibility(const int &border, const int &percent, const int &current)
 {
 	if ((border - percent) <= current && current <= (border + percent))
 		return true;
@@ -39,11 +37,11 @@ bool ozansKinect::KinectMath::fallibility(const DWORD &border, const DWORD &perc
 	return false;
 }
 
-bool ozansKinect::KinectMath::fallibility(const DWORD &border, const DWORD &percent, const Vector4 &organ)
+bool ozansKinect::KinectMath::fallibility(const int &border, const int &percent, const Vector4 &organ)
 
 {
-	if ((border - percent) <= organ.x && organ.x <= (border + percent))
-		if ((border - percent) <= organ.y && organ.y <= (border + percent))
+	if ((border - percent) <= organ.x && organ.x <= (percent + border))
+		if ((border - percent) <= organ.y && organ.y <= (percent + border))
 			return true;
 
 	return false;
@@ -75,10 +73,10 @@ Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 &data)
 //
 Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 &data)
 {
-	data.w = data.w * 1000;
-	data.x = data.x * 1000;
-	data.y = data.y * 1000;
-	data.z = data.z * 1000;
+	data.w = data.w * 100;
+	data.x = data.x * 100;
+	data.y = data.y * 100;
+	data.z = data.z * 100;
 
 	return data;
 }
@@ -97,6 +95,7 @@ int ozansKinect::KinectMath::getCoordinateW() const
 void ozansKinect::KinectMath::setCoordinateX(int newX)
 {
 	coordinateX = newX;
+	return;
 }
 
 int ozansKinect::KinectMath::getCoordinateX() const
@@ -107,6 +106,7 @@ int ozansKinect::KinectMath::getCoordinateX() const
 void ozansKinect::KinectMath::setCoordinateY(int newY)
 {
 	coordinateY = newY;
+	return;
 }
 
 int ozansKinect::KinectMath::getCoordinateY() const
@@ -117,10 +117,22 @@ int ozansKinect::KinectMath::getCoordinateY() const
 void ozansKinect::KinectMath::setCoordinateZ(int newZ)
 {
 	coordinateZ = newZ;
+	return;
 }
 
 int ozansKinect::KinectMath::getCoordinateZ() const
 {
 	return 0;
+}
+
+void ozansKinect::KinectMath::setData4(Vector4 newData4)
+{
+	data4 = newData4;
+	return;
+}
+
+Vector4 ozansKinect::KinectMath::getData4() const
+{
+	return data4;
 }
 

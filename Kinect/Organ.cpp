@@ -8,7 +8,6 @@
 #include "NuiApi.h"
 
 // My Classes
-#include "Kinect.h"
 #include "KinectMath.h"
 #include "Organ.h"
 
@@ -25,9 +24,8 @@ ozansKinect::Organ::~Organ()
 
 void ozansKinect::Organ::printRightHandCoord(Vector4 data[])
 {
-	KinectMath KinectMath;
 
-	Vector4 rightHand = KinectMath.getCoordinate2Sens(data[NUI_SKELETON_POSITION_HAND_RIGHT]);
+	Vector4 rightHand = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
 	std::cout	<< "w: " << (int)rightHand.w << std::endl
 				<< "x: " << (int)rightHand.x << std::endl
@@ -39,9 +37,8 @@ void ozansKinect::Organ::printRightHandCoord(Vector4 data[])
 
 void ozansKinect::Organ::printLeftHandCoord(Vector4 data[])
 {
-	KinectMath KinectMath;
 
-	Vector4 leftHand = KinectMath.getCoordinate2Sens(data[NUI_SKELETON_POSITION_HAND_LEFT]);
+	Vector4 leftHand = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HAND_LEFT]);
 
 	std::cout	<< "w: " << (int)leftHand.w << std::endl
 				<< "x: " << (int)leftHand.x << std::endl

@@ -13,8 +13,8 @@ namespace ozansKinect
 		~KinectMath();
 
 		// Math
-		bool fallibility(const DWORD &, const DWORD &, const DWORD &);
-		bool fallibility(const DWORD &, const DWORD &, const Vector4 &);
+		bool fallibility(const int &, const int &, const int &);
+		bool fallibility(const int &, const int &, const Vector4 &);
 
 		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
 		Vector4 getCoordinate2Sens(Vector4 &);
@@ -32,11 +32,16 @@ namespace ozansKinect
 		void setCoordinateZ(int newZ);
 		int getCoordinateZ() const;
 
+		void setData4(Vector4 newZ);
+		Vector4 getData4() const;
+
 	private:
 		int coordinateW;
 		int coordinateX;
 		int coordinateY;
 		int coordinateZ;
+
+		Vector4 data4;
 	};
 }
 

@@ -6,7 +6,7 @@
 
 namespace ozansKinect
 {
-	class Organ
+	class Organ : public KinectMath
 	{
 		friend class Organ;
 

@@ -5,7 +5,7 @@
 
 namespace ozansKinect
 {
-	class Kinect : public KinectMath, public Organ
+	class Kinect : public Organ
 	{
 
 	public:

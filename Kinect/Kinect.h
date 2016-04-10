@@ -7,7 +7,7 @@ namespace ozansKinect
 #define LATECY 1000
 	struct _coordinate
 	{
-		int x, y;
+		DWORD x, y;
 	};
 
 	class Kinect
@@ -16,6 +16,11 @@ namespace ozansKinect
 	public:
 		Kinect();
 		~Kinect();
+
+		Kinect desf()
+		{
+
+		}
 
 		HRESULT Initialize();
 
@@ -29,21 +34,21 @@ namespace ozansKinect
 		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
 		Vector4 setCoordinate2Sens(Vector4);
 		Vector4 setCoordinate3Sens(Vector4);
-		int getCoordinateX() const;
-		int getCoordinateY() const;
+		DWORD getCoordinateX() const;
+		DWORD getCoordinateY() const;
 
 		bool connectionStatus(HRESULT);
 
 		// Gestures
-		void rightHandShake(int rightHand[30]);
+		void rightHandShake(DWORD rightHand[30]);
 
 		// Math
-		bool fallibility(const int &, const int &, const int &);
-		bool fallibility(const int &, const int &, const Vector4 &);
+		bool fallibility(const DWORD &, const DWORD &, const DWORD &);
+		bool fallibility(const DWORD &, const DWORD &, const Vector4 &);
 	private:
 		INuiSensor* pNuiSensor;
 		bool kinectShutdown;
-		int coordinateW, coordinateX, coordinateY, coordinateZ;
+		DWORD coordinateW, coordinateX, coordinateY, coordinateZ;
 
 		// Private struct example
 		_coordinate coordinate;

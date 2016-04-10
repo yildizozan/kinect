@@ -62,7 +62,7 @@ HRESULT ozansKinect::Kinect::Initialize()
 
 
 	// Look at each Kinect sensor
-	for (int i = 0; i < iSensorCount; i++)
+	for (DWORD i = 0; i < iSensorCount; i++)
 	{
 		// Create the sensor so we can check status,
 		// if we can't create it, move on
@@ -118,8 +118,8 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	Vector4 analysisDataHandLeft;
 
 	// Frame Counter
-	int frameCounter = 0;
-	int frame[30];
+	DWORD frameCounter = 0;
+	DWORD frame[30];
 
 	while (!getKinectShutdown())
 	{
@@ -133,7 +133,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 		// Smooth skeleton data
 		pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
 
-		for (int i = 0; i < NUI_SKELETON_COUNT; i++)
+		for (DWORD i = 0; i < NUI_SKELETON_COUNT; i++)
 		{
 			NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 
@@ -143,9 +143,9 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				analysisDataHandLeft = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
 				analysisDataHandRight = setCoordinate2Sens(skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-				std::cout << (int)analysisDataHandLeft.x << " - " << (int)analysisDataHandLeft.y << std::endl;
+				std::cout << (INT8)analysisDataHandLeft.x << " - " << (INT8)analysisDataHandLeft.y << std::endl;
 				std::cout << std::endl;
-				std::cout << (int)analysisDataHandRight.x << " - " << (int)analysisDataHandRight.y << std::endl;
+				std::cout << (INT8)analysisDataHandRight.x << " - " << (INT8)analysisDataHandRight.y << std::endl;
 
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
@@ -180,7 +180,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 void ozansKinect::Kinect::KinectExit(const Vector4 &leftHand, const Vector4 &rightHand)
 {
-	const int percent = 10;
+	const DWORD percent = 10;
 
 	if (fallibility(0, percent, leftHand))
 		if (fallibility(0, percent, rightHand))
@@ -233,12 +233,12 @@ Vector4 ozansKinect::Kinect::setCoordinate3Sens(Vector4 data)
 	return data;
 }
 
-int ozansKinect::Kinect::getCoordinateX() const
+DWORD ozansKinect::Kinect::getCoordinateX() const
 {
 	return coordinateX;
 }
 
-int ozansKinect::Kinect::getCoordinateY() const
+DWORD ozansKinect::Kinect::getCoordinateY() const
 {
 	return coordinateY;
 }
@@ -261,12 +261,14 @@ bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 	return false;
 }
 
-void ozansKinect::Kinect::rightHandShake(int rightHand[30])
+void ozansKinect::Kinect::rightHandShake(DWORD rightHand[30])
 {
 	
 
 	return;
 }
+
+
 
 //
 //	FUNCTION:	fallibility
@@ -277,18 +279,19 @@ void ozansKinect::Kinect::rightHandShake(int rightHand[30])
 //
 //		Verilen yanılma paylarına göre sayı arasında bir yerde mi diye control eder.
 //
-bool ozansKinect::Kinect::fallibility(const int &baseNumber, const int &percent, const int &currentNumber)
+bool ozansKinect::Kinect::fallibility(const DWORD &border, const DWORD &percent, const DWORD &current)
 {
-	if ((baseNumber - percent) <= currentNumber && currentNumber <= (baseNumber + percent))
+	if ((border - percent) <= current && current <= (border + percent))
 		return true;
 
 	return false;
 }
 
-bool ozansKinect::Kinect::fallibility(const int &baseNumber, const int &percent, const Vector4 &organ)
+bool ozansKinect::Kinect::fallibility(const DWORD &border, const DWORD &percent, const Vector4 &organ)
+
 {
-	if ((baseNumber - percent) <= organ.x && organ.x <= (baseNumber + percent))
-		if ((baseNumber - percent) <= organ.y && organ.y <= (baseNumber + percent))
+	if ((border - percent) <= organ.x && organ.x <= (border + percent))
+		if ((border - percent) <= organ.y && organ.y <= (border + percent))
 			return true;
 
 	return false;

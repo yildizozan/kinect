@@ -25,7 +25,7 @@ namespace ozansKinect
 		bool connectionStatus(HRESULT);
 
 		// Gestures
-		void rightHandShake(DWORD rightHand[30]);
+		void rightHandShake(int rightHand[30]);
 
 
 

@@ -54,12 +54,12 @@ bool ozansKinect::KinectMath::fallibility(const int &border, const int &percent,
 //
 //	COMMENTS:
 //
-Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 &data)
+Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 data)
 {
-	data.w = data.w * 10;
-	data.x = data.x * 10;
-	data.y = data.y * 10;
-	data.z = data.z * 10;
+	data.w = data.w * 100;
+	data.x = data.x * 100;
+	data.y = data.y * 100;
+	data.z = data.z * 100;
 
 	return data;
 }
@@ -71,12 +71,12 @@ Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 &data)
 //
 //	COMMENTS:	asd
 //
-Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 &data)
+Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 data)
 {
-	data.w = data.w * 100;
-	data.x = data.x * 100;
-	data.y = data.y * 100;
-	data.z = data.z * 100;
+	data.w = data.w * 1000;
+	data.x = data.x * 1000;
+	data.y = data.y * 1000;
+	data.z = data.z * 1000;
 
 	return data;
 }

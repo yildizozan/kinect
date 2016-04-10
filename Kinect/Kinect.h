@@ -1,16 +1,11 @@
 ﻿#ifndef KINECT_H
 #define KINECT_H
 
+#define LATECY 1000
+
 namespace ozansKinect
 {
-
-#define LATECY 1000
-	struct _coordinate
-	{
-		DWORD x, y;
-	};
-
-	class Kinect
+	class Kinect : public KinectMath, public Organ
 	{
 
 	public:
@@ -37,10 +32,7 @@ namespace ozansKinect
 	private:
 		INuiSensor* pNuiSensor;
 		bool kinectShutdown;
-		DWORD coordinateW, coordinateX, coordinateY, coordinateZ;
 
-		// Private struct example
-		_coordinate coordinate;
 	};
 }
 

@@ -32,11 +32,16 @@ namespace ozansKinect
 		void setCoordinateZ(int newZ);
 		int getCoordinateZ() const;
 
+		void setData4(Vector4 newZ);
+		Vector4 getData4() const;
+
 	private:
 		int coordinateW;
 		int coordinateX;
 		int coordinateY;
 		int coordinateZ;
+
+		Vector4 data4;
 	};
 }
 

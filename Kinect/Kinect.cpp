@@ -8,14 +8,13 @@
 #include "NuiApi.h"
 
 // My Classes
-#include "Organ.h"
 #include "KinectMath.h"
+#include "Organ.h"
 #include "Kinect.h"
 
 ozansKinect::Kinect::Kinect()
 	:pNuiSensor(NULL),
-	kinectShutdown(false),
-	coordinateX(0), coordinateY(0)
+	kinectShutdown(false)
 {
 
 } // end constructor
@@ -65,7 +64,7 @@ HRESULT ozansKinect::Kinect::Initialize()
 
 
 	// Look at each Kinect sensor
-	for (unsigned int i = 0; i < iSensorCount; i++)
+	for (int i = 0; i < iSensorCount; i++)
 	{
 		// Create the sensor so we can check status,
 		// if we can't create it, move on
@@ -113,9 +112,7 @@ HRESULT ozansKinect::Kinect::Initialize()
 //
 void ozansKinect::Kinect::ProcessSkeleton()
 {
-	// Kinect Math
-	KinectMath KinectMath;
-	Organ Organ;
+
 
 	// Create skeleton frame
 	NUI_SKELETON_FRAME skeletonFrame = { 0 };
@@ -152,16 +149,12 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				// Skeleton data
 				skeletonData = skeletonFrame.SkeletonData[i];
 
-				// We're traking the right hand and left hand skeleton, write coordinate
-				analysisDataHandLeft = KinectMath.getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
-				analysisDataHandRight = KinectMath.getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
-
-				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
 
-				Organ.printLeftHandCoord(skeletonData.SkeletonPositions);
+
+				printLeftHandCoord(skeletonData.SkeletonPositions);
 				std::cout << std::endl;
-				Organ.printRightHandCoord(skeletonData.SkeletonPositions);
+				printRightHandCoord(skeletonData.SkeletonPositions);
 
 				if (frameCounter == 30)
 				{

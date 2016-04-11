@@ -1,4 +1,4 @@
-ï»¿// KinectProject.cpp : Defines the entry point for the console application.
+// KinectProject.cpp : Defines the entry point for the console application.
 
 #include <iostream>
 #include <Windows.h>
@@ -13,7 +13,7 @@ int main()
 	ozansKinect::Kinect kinect;
 	kinect.Initialize();
 
-	// EÄŸer el hareketi belirtilen coordinatlara gelirse programdan Ã§Ä±kacak.
+	// Eðer el hareketi belirtilen coordinatlara gelirse programdan çýkacak.
 	kinect.ProcessSkeleton();
 
 	return 0;

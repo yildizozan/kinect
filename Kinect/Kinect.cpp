@@ -1,4 +1,4 @@
-ï»¿// Fundamentals
+// Fundamentals
 #include <iostream>
 
 // Windows headers
@@ -34,22 +34,22 @@ ozansKinect::Kinect::~Kinect()
 	{
 		std::cout << "Kinect not found." << std::endl;
 	}
-	
+
 	Sleep(3000);
 
 } // end destructors
 
-//
-//	FUNCTION:	Initialize
-//
-//	PURPOSE:	
-//
-//	COMMENTS(TR):
-//
-//		Sisteme takÄ±lÄ± olan Kinect sayÄ±sÄ±na bakacak
-//		her Kinect iÃ§in sÄ±rayla baÄŸlanmaya Ã§alÄ±ÅŸacak,
-//		eÄŸer baÄŸlantÄ± saÄŸlanamaz ise baÄŸlÄ± kinect bulamayacak program sonlanacak.
-//		EÄŸer baÄŸlÄ± kinect bulursa o kinect cihazÄ±na baÄŸlanacak ve iÅŸleme geÃ§ecek.
+  //
+  //	FUNCTION:	Initialize
+  //
+  //	PURPOSE:	
+  //
+  //	COMMENTS(TR):
+  //
+  //		Sisteme takýlý olan Kinect sayýsýna bakacak
+  //		her Kinect için sýrayla baðlanmaya çalýþacak,
+  //		eðer baðlantý saðlanamaz ise baðlý kinect bulamayacak program sonlanacak.
+  //		Eðer baðlý kinect bulursa o kinect cihazýna baðlanacak ve iþleme geçecek.
 HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
@@ -103,13 +103,13 @@ HRESULT ozansKinect::Kinect::Initialize()
 
 } // end function Initialize
 
-//
-//	FUNCTION: ProcessSkeleton
-//
-//	PURPOSE:
-//
-//	COMMENTS:
-//
+  //
+  //	FUNCTION: ProcessSkeleton
+  //
+  //	PURPOSE:
+  //
+  //	COMMENTS:
+  //
 void ozansKinect::Kinect::ProcessSkeleton()
 {
 	// Create skeleton frame
@@ -157,21 +157,21 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				std::cout << std::endl;
 				printRightHandCoord(skeletonData.SkeletonPositions);
 
-/*				if (frameCounter == 30)
+				/*				if (frameCounter == 30)
 				{
-					rightHandShake(frame);
+				rightHandShake(frame);
 				}
 				else
 				{
-					frame[frameCounter];
-					frameCounter++;
+				frame[frameCounter];
+				frameCounter++;
 				}
-*/
+				*/
 			} // end if
 
 		} // end for
 
-		// We can see koord
+		  // We can see koord
 		system("cls");
 
 	} // end while
@@ -229,7 +229,7 @@ bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 
 void ozansKinect::Kinect::rightHandShake(int rightHand[30])
 {
-	
-	
+
+
 	return;
 }

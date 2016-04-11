@@ -1,3 +1,7 @@
+﻿/*
+*	Author: Ozan YILDIZ
+*/
+#pragma once
 #ifndef KINECTMATH_H
 #define KINECTMATH_H
 

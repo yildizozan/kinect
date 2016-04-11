@@ -60,7 +60,7 @@ Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 data)
 	data.x = data.x * 100;
 	data.y = data.y * 100;
 	data.z = data.z * 100;
-
+	
 	return data;
 }
 

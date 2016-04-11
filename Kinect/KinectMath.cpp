@@ -1,4 +1,4 @@
-ï»¿// Fundamentals
+// Fundamentals
 #include <iostream>
 
 // Windows headers
@@ -27,7 +27,7 @@ ozansKinect::KinectMath::~KinectMath()
 //
 //	COMMENTS(TR):
 //
-//		Verilen yanÄ±lma paylarÄ±na gÃ¶re sayÄ± arasÄ±nda bir yerde mi diye control eder.
+//		Verilen yanılma paylarına göre sayı arasında bir yerde mi diye control eder.
 //
 bool ozansKinect::KinectMath::fallibility(const int &border, const int &percent, const int &current)
 {
@@ -60,7 +60,7 @@ Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 data)
 	data.x = data.x * 100;
 	data.y = data.y * 100;
 	data.z = data.z * 100;
-	
+
 	return data;
 }
 

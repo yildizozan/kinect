@@ -1,4 +1,4 @@
-﻿/*
+/*
 *	Author: Ozan YILDIZ
 */
 #pragma once
@@ -13,7 +13,7 @@ namespace ozansKinect
 	{
 
 	public:
-		
+
 		Kinect();
 		~Kinect();
 

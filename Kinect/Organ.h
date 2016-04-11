@@ -1,4 +1,4 @@
-﻿/*
+/*
 *	Author: Ozan YILDIZ
 */
 #pragma once
@@ -14,8 +14,8 @@ namespace ozansKinect
 	public:
 		Organ();
 		~Organ();
-		void printRightHandCoord(Vector4 []);
-		void printLeftHandCoord(Vector4 []);
+		void printRightHandCoord(Vector4[]);
+		void printLeftHandCoord(Vector4[]);
 
 
 	private:

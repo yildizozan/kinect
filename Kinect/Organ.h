@@ -1,6 +1,7 @@
 ﻿/*
-*	Author: Ozan Yıldız
+*	Author: Ozan YILDIZ
 */
+#pragma once
 #ifndef ORGAN_H
 #define ORGAN_H
 

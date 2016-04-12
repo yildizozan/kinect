@@ -5,7 +5,6 @@
 #ifndef KINECT_H
 #define KINECT_H
 
-
 #define LATECY 1000
 
 namespace ozansKinect

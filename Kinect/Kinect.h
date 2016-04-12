@@ -9,7 +9,7 @@
 
 namespace ozansKinect
 {
-	class Kinect : public Organ
+	class Kinect : public Organ,  public KinectMotion
 	{
 
 	public:

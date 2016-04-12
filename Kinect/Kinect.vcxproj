@@ -84,7 +84,7 @@
       <AdditionalIncludeDirectories>C:\Program Files\Microsoft SDKs\Kinect\v1.8\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\Program Files\Microsoft SDKs\Kinect\v1.8\amd64\Kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files\Microsoft SDKs\Kinect\v1.8\lib\amd64\Kinect10.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,12 +116,14 @@
   <ItemGroup>
     <ClCompile Include="Kinect.cpp" />
     <ClCompile Include="KinectMath.cpp" />
+    <ClCompile Include="KinectMotion.cpp" />
     <ClCompile Include="Organ.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Kinect.h" />
     <ClInclude Include="KinectMath.h" />
+    <ClInclude Include="KinectMotion.h" />
     <ClInclude Include="Organ.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

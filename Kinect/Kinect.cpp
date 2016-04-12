@@ -1,5 +1,10 @@
 // Fundamentals
 #include <iostream>
+using std::cout;
+using std::endl;
+
+#include <vector>
+using std::vector;
 
 // Windows headers
 #include <Windows.h>
@@ -8,6 +13,7 @@
 #include "NuiApi.h"
 
 // My Classes
+#include "KinectMotion.h"
 #include "KinectMath.h"
 #include "Organ.h"
 #include "Kinect.h"
@@ -26,13 +32,13 @@ ozansKinect::Kinect::~Kinect()
 	{
 		pNuiSensor->NuiShutdown();
 
-		std::cout << "Bye bye.." << std::endl;
+		cout << "Bye bye.." << endl;
 
 	}
 
 	if (pNuiSensor == nullptr)
 	{
-		std::cout << "Kinect not found." << std::endl;
+		cout << "Kinect not found." << endl;
 	}
 
 	Sleep(3000);
@@ -122,9 +128,10 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	Vector4 analysisDataHandRight;
 	Vector4 analysisDataHandLeft;
 
-	// Frame Counter
+/*	// Frame Counter
 	int frameCounter = 0;
 	int frame[30];
+	*/
 
 	while (!getKinectShutdown())
 	{
@@ -154,7 +161,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
 				printLeftHandCoord(skeletonData.SkeletonPositions);
-				std::cout << std::endl;
+				cout << endl;
 				printRightHandCoord(skeletonData.SkeletonPositions);
 
 				/*				if (frameCounter == 30)

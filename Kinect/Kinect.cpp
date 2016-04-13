@@ -101,7 +101,7 @@ HRESULT ozansKinect::Kinect::Initialize()
 			// Create an event that will be signaled when skeleton data is available
 			hNextSkeletonEvent = CreateEventW(NULL, TRUE, TRUE, NULL);
 
-			hr = pNuiSensor->NuiSkeletonTrackingEnable(hNextSkeletonEvent, NUI_SKELETON_TRACKING_FLAG_ENABLE_SEATED_SUPPORT);
+			hr = pNuiSensor->NuiSkeletonTrackingEnable(hNextSkeletonEvent, NUI_SKELETON_TRACKING_FLAG_SUPPRESS_NO_FRAME_DATA);
 			cout << "Success" << endl;
 		}
 	}
@@ -154,7 +154,8 @@ void ozansKinect::Kinect::ProcessSkeleton()
 
 						KinectExit(skeletonData.SkeletonPositions);
 
-						sitDown(skeletonData.SkeletonPositions);
+						//sitDown(skeletonData.SkeletonPositions);
+						showAllOrgans(skeletonData.SkeletonPositions);
 
 					} // end if
 				} // end for

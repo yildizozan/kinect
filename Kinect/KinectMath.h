@@ -13,7 +13,7 @@ namespace ozansKinect
 		KinectMath();
 		~KinectMath();
 
-		// Math
+		// Fallibility
 		virtual bool fallibility(const int &, const int &, const int &);
 		virtual bool fallibility(const int &, const int &, const Vector4 &);
 
@@ -25,29 +25,6 @@ namespace ozansKinect
 		virtual int getCoordinate2Sens(float);
 		virtual int getCoordinate3Sens(float);
 
-		// Setter and Getter for private
-		void setCoordinateW(int newW);
-		int getCoordinateW() const;
-
-		void setCoordinateX(int newX);
-		int getCoordinateX() const;
-
-		void setCoordinateY(int newY);
-		int getCoordinateY() const;
-
-		void setCoordinateZ(int newZ);
-		int getCoordinateZ() const;
-
-		void setData4(Vector4 newZ);
-		Vector4 getData4() const;
-
-	private:
-		int coordinateW;
-		int coordinateX;
-		int coordinateY;
-		int coordinateZ;
-
-		Vector4 data4;
 	};
 }
 

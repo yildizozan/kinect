@@ -64,13 +64,6 @@ Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 data)
 	return data;
 }
 
-//
-//	FUNCTION:	Coordinate3Sens
-//
-//	PURPOSE:	Transform coordinate 3 decimal number
-//
-//	COMMENTS:	asd
-//
 Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 data)
 {
 	data.w = data.w * 1000;
@@ -79,6 +72,16 @@ Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 data)
 	data.z = data.z * 1000;
 
 	return data;
+}
+
+int ozansKinect::KinectMath::getCoordinate2Sens(float data)
+{
+	return (int)data * 100;
+}
+
+int ozansKinect::KinectMath::getCoordinate3Sens(float data)
+{
+	return (int)data * 1000;
 }
 
 // Setters and Getters

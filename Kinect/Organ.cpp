@@ -46,7 +46,7 @@ void ozansKinect::Organ::printLeftHandCoord(Vector4 data[])
 
 	cout << "Left Hand" << endl;
 	cout << "w: " << (int)leftHand2Sens.w << "\t" << (int)leftHand3Sens.w << endl;
-	cout << "x: " << (int)leftHand2Sens.x << "\t" << (int).x << endl;
+	cout << "x: " << (int)leftHand2Sens.x << "\t" << (int)leftHand3Sens.x << endl;
 	cout << "y: " << (int)leftHand2Sens.y << "\t" << (int)leftHand3Sens.y << endl;
 	cout << "z: " << (int)leftHand2Sens.z << "\t" << (int)leftHand3Sens.z << endl;
 

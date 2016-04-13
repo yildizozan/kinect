@@ -13,6 +13,8 @@ using std::endl;
 
 // My Classes
 #include "Kinect.h"
+#include "KinectMotion.h"
+#include "KinectMath.h"
 
 ozansKinect::Kinect::Kinect()
 	:pNuiSensor(NULL),
@@ -49,10 +51,10 @@ ozansKinect::Kinect::~Kinect()
 //
 //	COMMENTS(TR):
 //
-//		Sisteme takýlý olan Kinect sayýsýna bakacak
+//		Sisteme takılı olan Kinect sayısına bakacak
 //		her Kinect için sýrayla baðlanmaya çalýþacak,
 //		eðer baðlantý saðlanamaz ise baðlý kinect bulamayacak program sonlanacak.
-//		Eðer baðlý kinect bulursa o kinect cihazýna baðlanacak ve iþleme geçecek.
+//		Eðer baðlý kinect bulursa o kinect cihazýna baðlanacak ve işleme geçecek.
 HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
@@ -96,6 +98,9 @@ HRESULT ozansKinect::Kinect::Initialize()
 		hr = pNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
 		if (SUCCEEDED(hr))
 		{
+			// Create an event that will be signaled when skeleton data is available
+			hNextSkeletonEvent = CreateEventW(NULL, TRUE, TRUE, NULL);
+
 			hr = pNuiSensor->NuiSkeletonTrackingEnable(hNextSkeletonEvent, NUI_SKELETON_TRACKING_FLAG_ENABLE_SEATED_SUPPORT);
 			cout << "Success" << endl;
 		}
@@ -120,21 +125,14 @@ HRESULT ozansKinect::Kinect::Initialize()
   //
 void ozansKinect::Kinect::ProcessSkeleton()
 {
-	// Create skeleton frame
-	NUI_SKELETON_FRAME skeletonFrame = { 0 };
-
-	// Skeleton data
-	NUI_SKELETON_DATA skeletonData;
-
-	// Analysis data variable
-	Vector4 analysisDataHandRight;
-	Vector4 analysisDataHandLeft;
-
 	// Starting to tracking
 	while (!getKinectShutdown())
 	{
-//		if (WAIT_OBJECT_0 == WaitForSingleObject(hNextSkeletonEvent, 0))
+		if (WAIT_OBJECT_0 == WaitForSingleObject(hNextSkeletonEvent, 0))
 		{
+			// Create skeleton frame
+			NUI_SKELETON_FRAME skeletonFrame = { 0 };
+
 			// Get the skeleton frame is ready
 			HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATENCY, &skeletonFrame);
 			if (SUCCEEDED(hr))
@@ -150,15 +148,13 @@ void ozansKinect::Kinect::ProcessSkeleton()
 					if (NUI_SKELETON_TRACKED == trackingState)
 					{
 						// Skeleton data
-						skeletonData = skeletonFrame.SkeletonData[i];
+						NUI_SKELETON_DATA skeletonData = skeletonFrame.SkeletonData[i];
 
 						// We're traking the right hand and left hand skeleton, write coordinate
 
 						KinectExit(skeletonData.SkeletonPositions);
 
-						printLeftHandCoord(skeletonData.SkeletonPositions);
-						cout << endl;
-						printRightHandCoord(skeletonData.SkeletonPositions);
+						sitDown(skeletonData.SkeletonPositions);
 
 					} // end if
 				} // end for

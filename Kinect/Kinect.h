@@ -4,14 +4,13 @@
 #ifndef KINECT_H
 #define KINECT_H
 
-#include "KinectMath.h"
-#include "Organ.h"
+#define LATENCY 0
 
-#define LATENCY 5000
+#include "KinectMotion.h"
 
 namespace ozansKinect
 {
-	class Kinect : public Organ
+	class Kinect : public KinectMotion
 	{
 
 	public:

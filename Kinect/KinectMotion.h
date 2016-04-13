@@ -5,20 +5,22 @@
 #ifndef KINECTMOTION_H
 #define KINECTMOTION_H
 
+#include "KinectMath.h"
+
 namespace ozansKinect
 {
-	class KinectMotion
+	class KinectMotion : public KinectMath
 	{
 	public:
 		KinectMotion();
 		~KinectMotion();
 
-		BOOL sitDown(Vector4 &, Vector4 &, Vector4 &);
+		virtual BOOL sitDown(Vector4[]);
 
 	private:
-		Vector4 butt;
-		Vector4 leftKnee;
-		Vector4 rightKnee;
+		Vector4 hipCenter;
+		Vector4 hipLeft;
+		Vector4 hipRight;
 
 	};
 }

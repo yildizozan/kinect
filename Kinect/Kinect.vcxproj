@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{72E26907-5F55-4021-9E1D-A28E48C9DE49}</ProjectGuid>
+    <ProjectGuid>{150B9202-D07A-4BD9-9CF7-C8AA07304045}</ProjectGuid>
     <RootNamespace>Kinect</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>

@@ -15,7 +15,7 @@ using std::vector;
 #include "KinectMotion.h"
 
 
-ozansKinect::KinectMotion::KinectMotion()
+ozansKinect::KinectMotion::KinectMotion()		
 {
 }
 
@@ -26,9 +26,9 @@ ozansKinect::KinectMotion::~KinectMotion()
 
 BOOL ozansKinect::KinectMotion::sitDown(Vector4 data[])
 {
-	hipCenter = data[NUI_SKELETON_POSITION_HIP_CENTER];	//getCoordinate2Sens(data[NUI_SKELETON_POSITION_HIP_CENTER]);
-	hipLeft = data[NUI_SKELETON_POSITION_HIP_LEFT];	//getCoordinate2Sens(data[NUI_SKELETON_POSITION_HIP_LEFT]);
-	hipRight = data[NUI_SKELETON_POSITION_HIP_LEFT];	//getCoordinate2Sens(data[NUI_SKELETON_POSITION_HIP_LEFT]);
+	hipCenter = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HIP_CENTER]);
+	hipLeft = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HIP_LEFT]);
+	hipRight = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HIP_RIGHT]);
 
 	cout << "Sit Down" << endl;
 	cout << hipCenter.y	<< endl;

@@ -4,8 +4,6 @@
 #include <Windows.h>
 #include <NuiApi.h>
 
-#include "KinectMath.h"
-#include "Organ.h"
 #include "Kinect.h"
 
 int main()

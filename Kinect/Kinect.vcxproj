@@ -120,13 +120,13 @@
   <ItemGroup>
     <ClCompile Include="Kinect.cpp" />
     <ClCompile Include="KinectMath.cpp" />
-    <ClCompile Include="Organ.cpp" />
+    <ClCompile Include="KinectMotion.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Kinect.h" />
     <ClInclude Include="KinectMath.h" />
-    <ClInclude Include="Organ.h" />
+    <ClInclude Include="KinectMotion.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,10 +21,10 @@
     <ClCompile Include="Kinect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Organ.cpp">
+    <ClCompile Include="KinectMath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KinectMath.cpp">
+    <ClCompile Include="KinectMotion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,10 @@
     <ClInclude Include="Kinect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Organ.h">
+    <ClInclude Include="KinectMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KinectMath.h">
+    <ClInclude Include="KinectMotion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

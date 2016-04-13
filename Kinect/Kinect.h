@@ -6,12 +6,11 @@
 
 #define LATENCY 0
 
-#include "KinectMath.h"
-#include "Organ.h"
+#include "KinectMotion.h"
 
 namespace ozansKinect
 {
-	class Kinect : public Organ
+	class Kinect : public KinectMotion
 	{
 
 	public:
@@ -22,7 +21,7 @@ namespace ozansKinect
 		HRESULT Initialize();
 		void ProcessSkeleton();
 		// Kinect Shutdown Methods and Variable
-		void KinectExit(const Vector4 &, const Vector4 &);
+		void KinectExit(const Vector4[]);
 		void setKinectShutdown(const bool);
 		bool getKinectShutdown() const;
 

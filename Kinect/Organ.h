@@ -4,12 +4,11 @@
 #ifndef ORGAN_H
 #define ORGAN_H
 
-#include "KinectMath.h"
-
 namespace ozansKinect
 {
-	class Organ : public KinectMath
+	class Organ
 	{
+		friend class KinectMotion;
 
 	public:
 		Organ();

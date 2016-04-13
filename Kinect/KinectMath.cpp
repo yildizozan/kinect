@@ -12,13 +12,14 @@
 
 
 ozansKinect::KinectMath::KinectMath()
-	:coordinateW(0), coordinateX(0), coordinateY(0), coordinateZ(0)
 {
 }
 
 ozansKinect::KinectMath::~KinectMath()
 {
 }
+
+
 
 //
 //	FUNCTION:	fallibility
@@ -64,13 +65,6 @@ Vector4 ozansKinect::KinectMath::getCoordinate2Sens(Vector4 data)
 	return data;
 }
 
-//
-//	FUNCTION:	Coordinate3Sens
-//
-//	PURPOSE:	Transform coordinate 3 decimal number
-//
-//	COMMENTS:	asd
-//
 Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 data)
 {
 	data.w = data.w * 1000;
@@ -81,58 +75,12 @@ Vector4 ozansKinect::KinectMath::getCoordinate3Sens(Vector4 data)
 	return data;
 }
 
-// Setters and Getters
-void ozansKinect::KinectMath::setCoordinateW(int newW)
+int ozansKinect::KinectMath::getCoordinate2Sens(float data)
 {
-	coordinateW = newW;
+	return (int)data * 100;
 }
 
-int ozansKinect::KinectMath::getCoordinateW() const
+int ozansKinect::KinectMath::getCoordinate3Sens(float data)
 {
-	return 0;
+	return (int)data * 1000;
 }
-
-void ozansKinect::KinectMath::setCoordinateX(int newX)
-{
-	coordinateX = newX;
-	return;
-}
-
-int ozansKinect::KinectMath::getCoordinateX() const
-{
-	return 0;
-}
-
-void ozansKinect::KinectMath::setCoordinateY(int newY)
-{
-	coordinateY = newY;
-	return;
-}
-
-int ozansKinect::KinectMath::getCoordinateY() const
-{
-	return 0;
-}
-
-void ozansKinect::KinectMath::setCoordinateZ(int newZ)
-{
-	coordinateZ = newZ;
-	return;
-}
-
-int ozansKinect::KinectMath::getCoordinateZ() const
-{
-	return 0;
-}
-
-void ozansKinect::KinectMath::setData4(Vector4 newData4)
-{
-	data4 = newData4;
-	return;
-}
-
-Vector4 ozansKinect::KinectMath::getData4() const
-{
-	return data4;
-}
-

@@ -42,6 +42,7 @@ dlldata.c
 project.lock.json
 artifacts/
 
+*.db
 *_i.c
 *_p.c
 *_i.h
@@ -210,5 +211,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-*.db
+
+*.opendb
 *.sln

@@ -1,11 +1,13 @@
 /*
 *	Author: Ozan YILDIZ
 */
-#pragma once
 #ifndef KINECT_H
 #define KINECT_H
 
-#define LATECY 1000
+#define LATENCY 0
+
+#include "KinectMath.h"
+#include "Organ.h"
 
 namespace ozansKinect
 {
@@ -18,9 +20,7 @@ namespace ozansKinect
 		~Kinect();
 
 		HRESULT Initialize();
-
 		void ProcessSkeleton();
-
 		// Kinect Shutdown Methods and Variable
 		void KinectExit(const Vector4 &, const Vector4 &);
 		void setKinectShutdown(const bool);
@@ -28,13 +28,11 @@ namespace ozansKinect
 
 		bool connectionStatus(HRESULT);
 
-		// Gestures
-		void rightHandShake(int rightHand[30]);
-
-
 	private:
-		INuiSensor* pNuiSensor;
-		bool kinectShutdown;
+		INuiSensor*		pNuiSensor;
+		HANDLE			hNextSkeletonEvent;
+
+		bool			kinectShutdown;
 
 	};
 }

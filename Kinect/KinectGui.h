@@ -2,7 +2,7 @@
 #define KINECTGUI_H
 
 #include <QtWidgets/QMainWindow>
-#include "ui_KinectGui.h"
+#include <QtGui\qpainter.h>
 
 class KinectGui : public QMainWindow
 {
@@ -12,8 +12,10 @@ public:
 	KinectGui(QWidget *parent = 0);
 	~KinectGui();
 
+	void paintEvent(QPaintEvent *pe);
+
 private:
-	Ui::KinectGuiClass ui;
+
 };
 
 #endif // KINECTGUI_H

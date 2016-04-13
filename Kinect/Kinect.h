@@ -6,8 +6,6 @@
 
 #include "KinectMath.h"
 #include "Organ.h"
-#include "KinectMotion.h"
-
 
 namespace ozansKinect
 {
@@ -15,7 +13,7 @@ namespace ozansKinect
 	{
 
 	public:
-			
+
 		Kinect();
 		~Kinect();
 
@@ -29,10 +27,6 @@ namespace ozansKinect
 		bool getKinectShutdown() const;
 
 		bool connectionStatus(HRESULT);
-
-		// Gestures
-		void rightHandShake(int rightHand[30]);
-
 
 	private:
 		INuiSensor* pNuiSensor;

@@ -1,7 +1,6 @@
 /*
 *	Author: Ozan YILDIZ
 */
-
 #ifndef KINECTMATH_H
 #define KINECTMATH_H
 

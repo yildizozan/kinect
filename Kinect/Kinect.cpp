@@ -1,10 +1,6 @@
 // Fundamentals
 #include <iostream>
-using std::cout;
-using std::endl;
-
 #include <vector>
-using std::vector;
 
 // Windows headers
 #include <Windows.h>
@@ -13,9 +9,6 @@ using std::vector;
 #include "NuiApi.h"
 
 // My Classes
-#include "KinectMotion.h"
-#include "KinectMath.h"
-#include "Organ.h"
 #include "Kinect.h"
 
 ozansKinect::Kinect::Kinect()
@@ -28,17 +21,18 @@ ozansKinect::Kinect::Kinect()
 
 ozansKinect::Kinect::~Kinect()
 {
+
 	if (pNuiSensor)
 	{
 		pNuiSensor->NuiShutdown();
 
-		cout << "Bye bye.." << endl;
+		std::cout << "Bye bye.." << std::endl;
 
 	}
 
 	if (pNuiSensor == nullptr)
 	{
-		cout << "Kinect not found." << endl;
+		std::cout << "Kinect not found." << std::endl;
 	}
 
 	Sleep(3000);
@@ -128,6 +122,7 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	Vector4 analysisDataHandRight;
 	Vector4 analysisDataHandLeft;
 
+	// Starting to tracking
 	while (!getKinectShutdown())
 	{
 		// Prepare next frame
@@ -156,19 +151,9 @@ void ozansKinect::Kinect::ProcessSkeleton()
 				KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
 				printLeftHandCoord(skeletonData.SkeletonPositions);
-				cout << endl;
+				std::cout << std::endl;
 				printRightHandCoord(skeletonData.SkeletonPositions);
 
-				/*				if (frameCounter == 30)
-				{
-				rightHandShake(frame);
-				}
-				else
-				{
-				frame[frameCounter];
-				frameCounter++;
-				}
-				*/
 			} // end if
 
 		} // end for
@@ -229,9 +214,3 @@ bool ozansKinect::Kinect::connectionStatus(HRESULT hr)
 	return false;
 }
 
-void ozansKinect::Kinect::rightHandShake(int rightHand[30])
-{
-
-
-	return;
-}

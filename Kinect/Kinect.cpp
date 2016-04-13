@@ -1,5 +1,8 @@
-// Fundamentals
+ï»¿// Fundamentals
 #include <iostream>
+using std::cout;
+using std::endl;
+
 #include <vector>
 
 // Windows headers
@@ -39,17 +42,17 @@ ozansKinect::Kinect::~Kinect()
 
 } // end destructors
 
-  //
-  //	FUNCTION:	Initialize
-  //
-  //	PURPOSE:	
-  //
-  //	COMMENTS(TR):
-  //
-  //		Sisteme takýlý olan Kinect sayýsýna bakacak
-  //		her Kinect için sýrayla baðlanmaya çalýþacak,
-  //		eðer baðlantý saðlanamaz ise baðlý kinect bulamayacak program sonlanacak.
-  //		Eðer baðlý kinect bulursa o kinect cihazýna baðlanacak ve iþleme geçecek.
+//
+//	FUNCTION:	Initialize
+//
+//	PURPOSE:	
+//
+//	COMMENTS(TR):
+//
+//		Sisteme takÃ½lÃ½ olan Kinect sayÃ½sÃ½na bakacak
+//		her Kinect iÃ§in sÃ½rayla baÃ°lanmaya Ã§alÃ½Ã¾acak,
+//		eÃ°er baÃ°lantÃ½ saÃ°lanamaz ise baÃ°lÃ½ kinect bulamayacak program sonlanacak.
+//		EÃ°er baÃ°lÃ½ kinect bulursa o kinect cihazÃ½na baÃ°lanacak ve iÃ¾leme geÃ§ecek.
 HRESULT ozansKinect::Kinect::Initialize()
 {
 	INuiSensor* tempNuiSensor;
@@ -61,7 +64,6 @@ HRESULT ozansKinect::Kinect::Initialize()
 	{
 		return hr;
 	}
-
 
 	// Look at each Kinect sensor
 	for (int i = 0; i < iSensorCount; i++)
@@ -88,9 +90,15 @@ HRESULT ozansKinect::Kinect::Initialize()
 		tempNuiSensor->Release();
 	}
 
+	// If its working
 	if (pNuiSensor != NULL)
 	{
 		hr = pNuiSensor->NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
+		if (SUCCEEDED(hr))
+		{
+			hr = pNuiSensor->NuiSkeletonTrackingEnable(hNextSkeletonEvent, NUI_SKELETON_TRACKING_FLAG_ENABLE_SEATED_SUPPORT);
+			cout << "Success" << endl;
+		}
 	}
 
 	if (pNuiSensor == nullptr)
@@ -125,46 +133,43 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	// Starting to tracking
 	while (!getKinectShutdown())
 	{
-		// Prepare next frame
-		HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
-		if (FAILED(hr))
+		if (WAIT_OBJECT_0 == WaitForSingleObject(hNextSkeletonEvent, 0))
 		{
-			return;
-		}
 
-		// Smooth skeleton data
-		pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
-
-		for (int i = 0; i < NUI_SKELETON_COUNT; i++)
-		{
-			NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
-
-			if (NUI_SKELETON_TRACKED == trackingState)
+			// Get the skeleton frame is ready
+			HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATENCY, &skeletonFrame);
+			if (SUCCEEDED(hr))
 			{
-				// Skeleton data
-				skeletonData = skeletonFrame.SkeletonData[i];
+				// Smooth skeleton data
+				pNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
 
-				// We're traking the right hand and left hand skeleton, write coordinate
-				analysisDataHandLeft = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
-				analysisDataHandRight = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
+				// Starting to data
+				for (int i = 0; i < NUI_SKELETON_COUNT; i++)
+				{
+					NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 
-				KinectExit(analysisDataHandLeft, analysisDataHandRight);
+					if (NUI_SKELETON_TRACKED == trackingState)
+					{
+						// Skeleton data
+						skeletonData = skeletonFrame.SkeletonData[i];
 
-				printLeftHandCoord(skeletonData.SkeletonPositions);
-				std::cout << std::endl;
-				printRightHandCoord(skeletonData.SkeletonPositions);
+						// We're traking the right hand and left hand skeleton, write coordinate
+						analysisDataHandLeft = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
+						analysisDataHandRight = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-			} // end if
+						KinectExit(analysisDataHandLeft, analysisDataHandRight);
 
-		} // end for
+						printLeftHandCoord(skeletonData.SkeletonPositions);
+						std::cout << std::endl;
+						printRightHandCoord(skeletonData.SkeletonPositions);
 
-		  // We can see koord
-		system("cls");
-
+					} // end if
+				} // end for
+			}
+		}
+		system("CLS");
 	} // end while
-
-	return;
-}
+} // end function
 
 //
 //	FUNCTION: KinectShutdown

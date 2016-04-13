@@ -11,10 +11,12 @@
 int main()
 {
 	ozansKinect::Kinect kinect;
-	kinect.Initialize();
+	if (SUCCEEDED(kinect.Initialize()))
+	{
+		kinect.ProcessSkeleton();
+	}
 
 	// Eðer el hareketi belirtilen coordinatlara gelirse programdan çýkacak.
-	kinect.ProcessSkeleton();
 
 	return 0;
 }

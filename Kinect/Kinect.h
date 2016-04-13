@@ -4,6 +4,8 @@
 #ifndef KINECT_H
 #define KINECT_H
 
+#define LATENCY 0
+
 #include "KinectMath.h"
 #include "Organ.h"
 
@@ -18,9 +20,7 @@ namespace ozansKinect
 		~Kinect();
 
 		HRESULT Initialize();
-
 		void ProcessSkeleton();
-
 		// Kinect Shutdown Methods and Variable
 		void KinectExit(const Vector4 &, const Vector4 &);
 		void setKinectShutdown(const bool);
@@ -29,8 +29,10 @@ namespace ozansKinect
 		bool connectionStatus(HRESULT);
 
 	private:
-		INuiSensor* pNuiSensor;
-		bool kinectShutdown;
+		INuiSensor*		pNuiSensor;
+		HANDLE			hNextSkeletonEvent;
+
+		bool			kinectShutdown;
 
 	};
 }

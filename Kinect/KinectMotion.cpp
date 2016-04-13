@@ -15,7 +15,7 @@ using std::vector;
 #include "KinectMotion.h"
 
 
-ozansKinect::KinectMotion::KinectMotion()		
+ozansKinect::KinectMotion::KinectMotion()
 {
 }
 
@@ -39,36 +39,36 @@ void ozansKinect::KinectMotion::showCoord(Vector4 data)
 void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 {
 	//Head
-	head	=	data[NUI_SKELETON_POSITION_HEAD];
+	head = data[NUI_SKELETON_POSITION_HEAD];
 
 	// Left arm
-	shoulderLeft	=	data[NUI_SKELETON_POSITION_SHOULDER_LEFT];
-	elbowLeft		=	data[NUI_SKELETON_POSITION_ELBOW_LEFT];
-	wristLeft		=	data[NUI_SKELETON_POSITION_WRIST_LEFT];
-	handLeft		=	data[NUI_SKELETON_POSITION_HAND_LEFT];
+	shoulderLeft = data[NUI_SKELETON_POSITION_SHOULDER_LEFT];
+	elbowLeft = data[NUI_SKELETON_POSITION_ELBOW_LEFT];
+	wristLeft = data[NUI_SKELETON_POSITION_WRIST_LEFT];
+	handLeft = data[NUI_SKELETON_POSITION_HAND_LEFT];
 
 	// Right arm
-	shoulderRight	=	data[NUI_SKELETON_POSITION_SHOULDER_RIGHT];
-	elbowRight		=	data[NUI_SKELETON_POSITION_ELBOW_RIGHT];
-	wristRight		=	data[NUI_SKELETON_POSITION_WRIST_RIGHT];
-	handRight		=	data[NUI_SKELETON_POSITION_HAND_RIGHT];
+	shoulderRight = data[NUI_SKELETON_POSITION_SHOULDER_RIGHT];
+	elbowRight = data[NUI_SKELETON_POSITION_ELBOW_RIGHT];
+	wristRight = data[NUI_SKELETON_POSITION_WRIST_RIGHT];
+	handRight = data[NUI_SKELETON_POSITION_HAND_RIGHT];
 
 	// Middle body
-	shoulderCenter	=	data[NUI_SKELETON_POSITION_SHOULDER_CENTER];
-	spine			=	data[NUI_SKELETON_POSITION_SPINE];
-	hipCenter		=	data[NUI_SKELETON_POSITION_HIP_CENTER];
+	shoulderCenter = data[NUI_SKELETON_POSITION_SHOULDER_CENTER];
+	spine = data[NUI_SKELETON_POSITION_SPINE];
+	hipCenter = data[NUI_SKELETON_POSITION_HIP_CENTER];
 
 	// Left leg
-	hipLeft		=	data[NUI_SKELETON_POSITION_HIP_LEFT];
-	kneeLeft	=	data[NUI_SKELETON_POSITION_KNEE_LEFT];
-	ankleLeft	=	data[NUI_SKELETON_POSITION_ANKLE_LEFT];
-	footLeft	=	data[NUI_SKELETON_POSITION_FOOT_LEFT];
+	hipLeft = data[NUI_SKELETON_POSITION_HIP_LEFT];
+	kneeLeft = data[NUI_SKELETON_POSITION_KNEE_LEFT];
+	ankleLeft = data[NUI_SKELETON_POSITION_ANKLE_LEFT];
+	footLeft = data[NUI_SKELETON_POSITION_FOOT_LEFT];
 
 	// Right leg
-	hipRight	=	data[NUI_SKELETON_POSITION_HIP_RIGHT];
-	kneeRight	=	data[NUI_SKELETON_POSITION_KNEE_RIGHT];
-	ankleRight	=	data[NUI_SKELETON_POSITION_ANKLE_RIGHT];
-	footRight	=	data[NUI_SKELETON_POSITION_FOOT_RIGHT];
+	hipRight = data[NUI_SKELETON_POSITION_HIP_RIGHT];
+	kneeRight = data[NUI_SKELETON_POSITION_KNEE_RIGHT];
+	ankleRight = data[NUI_SKELETON_POSITION_ANKLE_RIGHT];
+	footRight = data[NUI_SKELETON_POSITION_FOOT_RIGHT];
 
 
 	// Coord
@@ -80,7 +80,7 @@ void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 	showCoord(wristLeft);
 	cout << "handLeft" << endl;
 	showCoord(handLeft);
-/*
+	/*
 	cout << "shoulderRight" << endl;
 	showCoord(shoulderRight);
 	cout << "elbowRight" << endl;
@@ -89,7 +89,7 @@ void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 	showCoord(wristRight);
 	cout << "handRight" << endl;
 	showCoord(handRight);
-*/
+	*/
 	return;
 }
 
@@ -100,9 +100,9 @@ BOOL ozansKinect::KinectMotion::sitDown(Vector4 data[])
 	hipRight = data[NUI_SKELETON_POSITION_HIP_RIGHT];
 
 	cout << "Sit Down" << endl;
-	cout << (int)hipCenter.y	<< endl;
-	cout << (int)hipLeft.y	<< endl;
-	cout << (int)hipRight.y	<< endl;
+	cout << (int)hipCenter.y << endl;
+	cout << (int)hipLeft.y << endl;
+	cout << (int)hipRight.y << endl;
 
 	return 0;
 }

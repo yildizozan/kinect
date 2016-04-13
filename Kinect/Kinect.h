@@ -4,10 +4,10 @@
 #ifndef KINECT_H
 #define KINECT_H
 
-#define LATENCY 0
-
 #include "KinectMath.h"
 #include "Organ.h"
+
+#define LATENCY 5000
 
 namespace ozansKinect
 {
@@ -22,7 +22,7 @@ namespace ozansKinect
 		HRESULT Initialize();
 		void ProcessSkeleton();
 		// Kinect Shutdown Methods and Variable
-		void KinectExit(const Vector4 &, const Vector4 &);
+		void KinectExit(const Vector4[]);
 		void setKinectShutdown(const bool);
 		bool getKinectShutdown() const;
 

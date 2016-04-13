@@ -29,13 +29,13 @@ ozansKinect::Kinect::~Kinect()
 	{
 		pNuiSensor->NuiShutdown();
 
-		std::cout << "Bye bye.." << std::endl;
+		cout << "Bye bye.." << endl;
 
 	}
 
 	if (pNuiSensor == nullptr)
 	{
-		std::cout << "Kinect not found." << std::endl;
+		cout << "Kinect not found." << endl;
 	}
 
 	Sleep(3000);
@@ -133,9 +133,8 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	// Starting to tracking
 	while (!getKinectShutdown())
 	{
-		if (WAIT_OBJECT_0 == WaitForSingleObject(hNextSkeletonEvent, 0))
+//		if (WAIT_OBJECT_0 == WaitForSingleObject(hNextSkeletonEvent, 0))
 		{
-
 			// Get the skeleton frame is ready
 			HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATENCY, &skeletonFrame);
 			if (SUCCEEDED(hr))
@@ -154,13 +153,11 @@ void ozansKinect::Kinect::ProcessSkeleton()
 						skeletonData = skeletonFrame.SkeletonData[i];
 
 						// We're traking the right hand and left hand skeleton, write coordinate
-						analysisDataHandLeft = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT]);
-						analysisDataHandRight = getCoordinate2Sens(skeletonData.SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT]);
 
-						KinectExit(analysisDataHandLeft, analysisDataHandRight);
+						KinectExit(skeletonData.SkeletonPositions);
 
 						printLeftHandCoord(skeletonData.SkeletonPositions);
-						std::cout << std::endl;
+						cout << endl;
 						printRightHandCoord(skeletonData.SkeletonPositions);
 
 					} // end if
@@ -178,12 +175,16 @@ void ozansKinect::Kinect::ProcessSkeleton()
 //
 //	COMMENTS:
 //
-void ozansKinect::Kinect::KinectExit(const Vector4 &leftHand, const Vector4 &rightHand)
+
+void ozansKinect::Kinect::KinectExit(const Vector4 data[])
 {
+	Vector4 dataHandLeft = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HAND_LEFT]);
+	Vector4 dataHandRight = getCoordinate2Sens(data[NUI_SKELETON_POSITION_HAND_RIGHT]);
+
 	const int percent = 10;
 
-	if (fallibility(0, percent, leftHand))
-		if (fallibility(0, percent, rightHand))
+	if (fallibility(0, percent, dataHandLeft))
+		if (fallibility(0, percent, dataHandRight))
 			setKinectShutdown(true);
 
 	return;

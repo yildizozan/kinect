@@ -10,7 +10,6 @@ using std::endl;
 #include "NuiApi.h"
 
 // My Classes
-#include "KinectMath.h"
 #include "Organ.h"
 
 

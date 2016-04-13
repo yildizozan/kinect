@@ -128,15 +128,10 @@ void ozansKinect::Kinect::ProcessSkeleton()
 	Vector4 analysisDataHandRight;
 	Vector4 analysisDataHandLeft;
 
-/*	// Frame Counter
-	int frameCounter = 0;
-	int frame[30];
-	*/
-
 	while (!getKinectShutdown())
 	{
 		// Prepare next frame
-		HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(LATECY, &skeletonFrame);
+		HRESULT hr = pNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
 		if (FAILED(hr))
 		{
 			return;

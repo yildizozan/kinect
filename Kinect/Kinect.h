@@ -1,19 +1,21 @@
 /*
 *	Author: Ozan YILDIZ
 */
-#pragma once
 #ifndef KINECT_H
 #define KINECT_H
 
-#define LATECY 1000
+#include "KinectMath.h"
+#include "Organ.h"
+#include "KinectMotion.h"
+
 
 namespace ozansKinect
 {
-	class Kinect : public Organ,  public KinectMotion
+	class Kinect : public Organ
 	{
 
 	public:
-
+			
 		Kinect();
 		~Kinect();
 

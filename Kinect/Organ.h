@@ -1,15 +1,15 @@
 /*
 *	Author: Ozan YILDIZ
 */
-#pragma once
 #ifndef ORGAN_H
 #define ORGAN_H
+
+#include "KinectMath.h"
 
 namespace ozansKinect
 {
 	class Organ : public KinectMath
 	{
-		friend class Organ;
 
 	public:
 		Organ();

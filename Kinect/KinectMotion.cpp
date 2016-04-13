@@ -13,6 +13,7 @@ using std::vector;
 
 // My Classes
 #include "KinectMath.h"
+#include "Organ.h"
 #include "Kinect.h"
 #include "KinectMotion.h"
 
@@ -26,7 +27,7 @@ ozansKinect::KinectMotion::~KinectMotion()
 {
 }
 
-BOOL ozansKinect::KinectMotion::sitDown(Vector4 &butt, Vector4 &leftKnee, Vector4 &rightKnee)
+BOOL ozansKinect::KinectMotion::sitDown(Vector4 &theButt, Vector4 &theLeftKnee, Vector4 &theRightKnee)
 {
 
 

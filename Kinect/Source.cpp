@@ -4,17 +4,15 @@
 #include <Windows.h>
 #include <NuiApi.h>
 
-#include "Kinect.h"
+#include "KinectProcess.h"
 
 int main()
 {
-	ozansKinect::Kinect kinect;
-	if (SUCCEEDED(kinect.Initialize()))
-	{
-		kinect.ProcessSkeleton();
-	}
+	ozansKinect::KinectProcess kinect;
+	kinect.Initialize();
 
 	// Eðer el hareketi belirtilen coordinatlara gelirse programdan çýkacak.
+	kinect.ProcessSkeleton();
 
 	return 0;
 }

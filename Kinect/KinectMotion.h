@@ -5,11 +5,9 @@
 #ifndef KINECTMOTION_H
 #define KINECTMOTION_H
 
-#include "KinectMath.h"
-
 namespace ozansKinect
 {
-	class KinectMotion : public KinectMath
+	class KinectMotion
 	{
 	public:
 		KinectMotion();

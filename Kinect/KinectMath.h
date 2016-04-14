@@ -28,6 +28,9 @@ namespace ozansKinect
 		int getCoordinate2Sens(float);
 		int getCoordinate3Sens(float);
 
+		bool CompareVector4(const Vector4 &, const Vector4 &, const int);
+
+
 	};
 }
 

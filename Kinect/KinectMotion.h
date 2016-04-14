@@ -5,7 +5,7 @@
 #ifndef KINECTMOTION_H
 #define KINECTMOTION_H
 
-#define ERROR_PERCENT 1
+#define PERCENT 1
 
 namespace ozansKinect
 {
@@ -13,10 +13,11 @@ namespace ozansKinect
 	{
 	public:
 		KinectMotion();
+		KinectMotion(Vector4 data[]);
 		~KinectMotion();
 
 		// Showing
-		void showAllOrgans(Vector4[]);
+		void showAllOrgans();
 
 		// Motions
 		void sitDown();

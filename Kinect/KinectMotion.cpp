@@ -12,6 +12,7 @@ using std::vector;
 #include "NuiApi.h"
 
 // My Classes
+#include "KinectMath.h"
 #include "KinectMotion.h"
 
 
@@ -24,20 +25,9 @@ ozansKinect::KinectMotion::~KinectMotion()
 {
 }
 
-
-void ozansKinect::KinectMotion::showCoord(Vector4 data)
-{
-	cout << "W: " << data.w << endl;
-	cout << "X: " << data.x << endl;
-	cout << "Y: " << data.y << endl;
-	cout << "Z: " << data.z << endl;
-	cout << endl;
-
-	return;
-}
-
 void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 {
+
 	//Head
 	head = data[NUI_SKELETON_POSITION_HEAD];
 
@@ -70,7 +60,7 @@ void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 	ankleRight = data[NUI_SKELETON_POSITION_ANKLE_RIGHT];
 	footRight = data[NUI_SKELETON_POSITION_FOOT_RIGHT];
 
-
+	/*
 	// Coord
 	cout << "shoulderLeft" << endl;
 	showCoord(shoulderLeft);
@@ -80,7 +70,7 @@ void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 	showCoord(wristLeft);
 	cout << "handLeft" << endl;
 	showCoord(handLeft);
-	/*
+
 	cout << "shoulderRight" << endl;
 	showCoord(shoulderRight);
 	cout << "elbowRight" << endl;
@@ -90,19 +80,184 @@ void ozansKinect::KinectMotion::showAllOrgans(Vector4 data[])
 	cout << "handRight" << endl;
 	showCoord(handRight);
 	*/
+
 	return;
 }
 
-BOOL ozansKinect::KinectMotion::sitDown(Vector4 data[])
+void ozansKinect::KinectMotion::setOrgan(Vector4 data[])
 {
-	hipCenter = data[NUI_SKELETON_POSITION_HIP_CENTER];
-	hipLeft = data[NUI_SKELETON_POSITION_HIP_LEFT];
-	hipRight = data[NUI_SKELETON_POSITION_HIP_RIGHT];
+	for (unsigned int i = 0; i < 20; i++)
+	{
+		switch (i)
+		{
+		// Head
+		case NUI_SKELETON_POSITION_HEAD:
+			head = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_HEAD]);
+			break;
+		// Arm left
+		case NUI_SKELETON_POSITION_SHOULDER_LEFT:
+			shoulderLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_SHOULDER_LEFT]);
+			break;
+		case NUI_SKELETON_POSITION_ELBOW_LEFT:
+			elbowLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_ELBOW_LEFT]);
+			break;
+		case NUI_SKELETON_POSITION_WRIST_LEFT:
+			wristLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_WRIST_LEFT]);
+			break;
+		case NUI_SKELETON_POSITION_HAND_LEFT:
+			handLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_HAND_LEFT]);
+			break;
+		// Arm right
+		case NUI_SKELETON_POSITION_SHOULDER_RIGHT:
+			shoulderRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_SHOULDER_RIGHT]);
+			break;
+		case NUI_SKELETON_POSITION_ELBOW_RIGHT:
+			elbowRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_ELBOW_RIGHT]);
+			break;
+		case NUI_SKELETON_POSITION_WRIST_RIGHT:
+			wristRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_WRIST_RIGHT]);
+			break;
+		case NUI_SKELETON_POSITION_HAND_RIGHT:
+			handRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_HAND_RIGHT]);
+			break;
+		// Center of body
+		case NUI_SKELETON_POSITION_SHOULDER_CENTER:
+			shoulderCenter = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_SHOULDER_CENTER]);
+			break;
+		case NUI_SKELETON_POSITION_SPINE:
+			spine = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_SPINE]);
+			break;
+		case NUI_SKELETON_POSITION_HIP_CENTER:
+			hipCenter = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_HIP_CENTER]);
+			break;
+		// Leg left
+		case NUI_SKELETON_POSITION_HIP_LEFT:
+			hipLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_HIP_LEFT]);
+			break;
+		case NUI_SKELETON_POSITION_KNEE_LEFT:
+			kneeLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_KNEE_LEFT]);
+			break;
+		case NUI_SKELETON_POSITION_ANKLE_LEFT:
+			ankleLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_ANKLE_LEFT]);
+			break;
+		case NUI_SKELETON_POSITION_FOOT_LEFT:
+			footLeft = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_FOOT_LEFT]);
+			break;
+		// Leg right
+		case NUI_SKELETON_POSITION_HIP_RIGHT:
+			hipRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_HIP_RIGHT]);
+			break;
+		case NUI_SKELETON_POSITION_KNEE_RIGHT:
+			kneeRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_KNEE_RIGHT]);
+			break;
+		case NUI_SKELETON_POSITION_ANKLE_RIGHT:
+			ankleRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_ANKLE_RIGHT]);
+			break;
+		case NUI_SKELETON_POSITION_FOOT_RIGHT:
+			footRight = getVector4Coord3Sens(data[NUI_SKELETON_POSITION_FOOT_RIGHT]);
+			break;
+		default:
+			break;
+		}
+	}
+	return;
+}
 
+Vector4 ozansKinect::KinectMotion::getOrgan(const int organ) const
+{
+	switch (organ)
+	{
+		// Head
+	case NUI_SKELETON_POSITION_HEAD:
+		return head;
+		// Arm left
+	case NUI_SKELETON_POSITION_SHOULDER_LEFT:
+		return shoulderLeft;
+	case NUI_SKELETON_POSITION_ELBOW_LEFT:
+		return elbowLeft;
+	case NUI_SKELETON_POSITION_WRIST_LEFT:
+		return wristLeft;
+	case NUI_SKELETON_POSITION_HAND_LEFT:
+		return handLeft;
+		// Arm right
+	case NUI_SKELETON_POSITION_SHOULDER_RIGHT:
+		return shoulderRight;
+	case NUI_SKELETON_POSITION_ELBOW_RIGHT:
+		return elbowRight;
+	case NUI_SKELETON_POSITION_WRIST_RIGHT:
+		return wristRight;
+	case NUI_SKELETON_POSITION_HAND_RIGHT:
+		return handRight;
+		// Center of body
+	case NUI_SKELETON_POSITION_SHOULDER_CENTER:
+		return shoulderCenter;
+	case NUI_SKELETON_POSITION_SPINE:
+		return spine;
+	case NUI_SKELETON_POSITION_HIP_CENTER:
+		return hipCenter;
+		// Leg left
+	case NUI_SKELETON_POSITION_HIP_LEFT:
+		return hipLeft;
+	case NUI_SKELETON_POSITION_KNEE_LEFT:
+		return kneeLeft;
+	case NUI_SKELETON_POSITION_ANKLE_LEFT:
+		return ankleLeft;
+	case NUI_SKELETON_POSITION_FOOT_LEFT:
+		return footLeft;
+		// Leg right
+	case NUI_SKELETON_POSITION_HIP_RIGHT:
+		return hipRight;
+	case NUI_SKELETON_POSITION_KNEE_RIGHT:
+		return kneeRight;
+	case NUI_SKELETON_POSITION_ANKLE_RIGHT:
+		return ankleRight;
+	case NUI_SKELETON_POSITION_FOOT_RIGHT:
+		return footRight;
+	default:
+		cout << "Error" << endl;
+		return Vector4();
+	}
+}
+
+void ozansKinect::KinectMotion::sitDown()
+{
 	cout << "Sit Down" << endl;
-	cout << (int)hipCenter.y << endl;
-	cout << (int)hipLeft.y << endl;
-	cout << (int)hipRight.y << endl;
+	showCoord(hipCenter);
+	showCoord(hipLeft);
+	showCoord(hipRight);
 
-	return 0;
+	if (CompareVector4(hipLeft, hipRight, ERROR_PERCENT))
+		cout << "Oturiyin" << endl;
+
+	return;
+}
+
+Vector4 ozansKinect::KinectMotion::getVector4Coord3Sens(Vector4 &data)
+{
+	data.w = (int)data.w * 1000;
+	data.x = (int)data.x * 1000;
+	data.y = (int)data.y * 1000;
+	data.z = (int)data.z * 1000;
+
+	return data;
+}
+
+bool ozansKinect::KinectMotion::CompareVector4(const Vector4 &vector1, const Vector4 &vector2, const int fallibility)
+{
+	if ((vector1.x - (vector1.x * fallibility / 100)) && (vector1.y - (vector1.y * fallibility / 100)))
+		if ((vector2.x - (vector2.x * fallibility / 100)) && (vector2.y - (vector2.y * fallibility / 100)))
+			return true;
+
+	return false;
+}
+
+void ozansKinect::KinectMotion::showCoord(Vector4 &data)
+{
+	cout << "W: " << data.w << endl;
+	cout << "X: " << data.x << endl;
+	cout << "Y: " << data.y << endl;
+	cout << "Z: " << data.z << endl;
+	cout << endl;
+
+	return;
 }

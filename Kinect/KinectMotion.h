@@ -5,6 +5,8 @@
 #ifndef KINECTMOTION_H
 #define KINECTMOTION_H
 
+#define ERROR_PERCENT 1
+
 namespace ozansKinect
 {
 	class KinectMotion
@@ -13,12 +15,21 @@ namespace ozansKinect
 		KinectMotion();
 		~KinectMotion();
 
-		// OTHER
-		void showCoord(Vector4);
-
+		// Showing
 		void showAllOrgans(Vector4[]);
 
-		virtual BOOL sitDown(Vector4[]);
+		// Motions
+		void sitDown();
+
+		// Set and Get
+		void setOrgan(Vector4 data[]);
+		Vector4 getOrgan(const int) const;
+
+	protected:
+		// Math
+		Vector4 getVector4Coord3Sens(Vector4 &);
+		bool CompareVector4(const Vector4 &, const Vector4 &, const int);
+		void showCoord(Vector4 &);
 
 	private:
 		// Head

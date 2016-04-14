@@ -4,6 +4,8 @@
 #ifndef KINECTMATH_H
 #define KINECTMATH_H
 
+#define ERROR_PERCENT 10
+
 namespace ozansKinect
 {
 	class KinectMath
@@ -14,8 +16,9 @@ namespace ozansKinect
 		~KinectMath();
 
 		// Fallibility
-		bool fallibility(const int &, const int &, const int &);
-		bool fallibility(const int &, const int &, const Vector4 &);
+		bool fallibility(const int &current, const int &border, const int &percentValue);
+		bool fallibility(const Vector4 &, const int &, const int &);
+
 
 		// Coordinate Converter 2 and 3 Degree Sensitive Methods set/get
 		Vector4 getCoordinate2Sens(Vector4);

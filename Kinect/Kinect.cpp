@@ -75,7 +75,7 @@ HRESULT OzansKinect::Kinect::Connection()
 HRESULT OzansKinect::Kinect::Process()
 {
 	NUI_SKELETON_FRAME skeletonFrame;
-	
+
 	HRESULT hr = mNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
 	if (FAILED(hr))
 	{

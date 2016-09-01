@@ -14,7 +14,7 @@ using namespace OzansKinect;
 int main()
 {
 	Kinect kinect;
-	
+
 	HRESULT hr = kinect.Connection();
 	if (SUCCEEDED(hr))
 	{

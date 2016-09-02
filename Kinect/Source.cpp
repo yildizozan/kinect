@@ -3,14 +3,13 @@
 #include <Windows.h>
 
 // OpenGL
-#include <GL/glut.h>
+#include <gl/glut.h>
 
 // Nui Api
 #include "NuiApi.h"
 
 // My Header
 #include "Kinect.h"
-
 
 using namespace OzansKinect;
 
@@ -28,6 +27,7 @@ int main(int argc, char ** argv)
 		glutDisplayFunc(kinect.Draw);
 	}
 
+	glutMainLoop();
 
 	return 0;
 }

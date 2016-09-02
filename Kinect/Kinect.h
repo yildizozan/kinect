@@ -4,7 +4,7 @@ namespace OzansKinect {
 	{
 	private:
 		INuiSensor* mNuiSensor;
-
+		NUI_SKELETON_DATA skeletonData;
 
 	public:
 		Kinect();
@@ -13,7 +13,6 @@ namespace OzansKinect {
 		HRESULT Connection();
 		HRESULT Process();
 
-		void Draw(const NUI_SKELETON_DATA &);
-
+		void Draw();
 	};
 }

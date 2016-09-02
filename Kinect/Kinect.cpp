@@ -93,7 +93,7 @@ HRESULT OzansKinect::Kinect::Process()
 		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
-			Draw(skeletonFrame.SkeletonData[i]);
+			skeletonData = skeletonFrame.SkeletonData[i];
 		}
 	}
 	system("CLS");
@@ -101,14 +101,17 @@ HRESULT OzansKinect::Kinect::Process()
 	return S_OK;
 }
 
-void OzansKinect::Kinect::Draw(const NUI_SKELETON_DATA &skeletonData)
+void OzansKinect::Kinect::Draw()
 {
-	glClear(GL_COLOR_CLEAR_VALUE);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glPointSize(5);
+
 	glBegin(GL_POINT);
-	glPointSize(2);
+
 	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
 	{
-		glVertex3f(skeletonData.SkeletonPositions[i].x, skeletonData.SkeletonPositions[i].x, skeletonData.SkeletonPositions[i].x);
+		glVertex3f(skeletonData.SkeletonPositions[i].x, skeletonData.SkeletonPositions[i].y, skeletonData.SkeletonPositions[i].z);
 	}
 	glEnd();
 

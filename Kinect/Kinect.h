@@ -4,7 +4,9 @@ namespace OzansKinect {
 	{
 	private:
 		INuiSensor* mNuiSensor;
-		NUI_SKELETON_DATA skeletonData;
+		Vector4 organs[NUI_SKELETON_POSITION_COUNT];
+
+		//void setCoordinate(const NUI_SKELETON_DATA &);
 
 	public:
 		Kinect();
@@ -13,6 +15,7 @@ namespace OzansKinect {
 		HRESULT Connection();
 		HRESULT Process();
 
-		void Draw();
+		Vector4 getOrgans(int);
+
 	};
 }

@@ -2,9 +2,6 @@
 #include <iostream>
 #include <Windows.h>
 
-// OpenGL
-#include <gl/glut.h>
-
 // Nui Api
 #include "NuiApi.h"
 
@@ -80,20 +77,21 @@ HRESULT OzansKinect::Kinect::Process()
 	NUI_SKELETON_FRAME skeletonFrame;
 
 	HRESULT hr = mNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
+	if (FAILED(hr)) return hr;
 
 	// Smooth skeleton data
 	mNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
 
-	for (int i = 0; i < NUI_SKELETON_COUNT; i++)
+	for (int unsigned i = 0; i < NUI_SKELETON_COUNT; i++)
 	{
 		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
-			skeletonData = skeletonFrame.SkeletonData[i];
+			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
+			{
+				organs[j] = skeletonFrame.SkeletonData[i].SkeletonPositions[j];
+				std::cout << organs[j].x << " " << organs[j].y << " " << organs[j].z << std::endl;
+			}
 		}
 	}
 	system("CLS");
@@ -101,19 +99,8 @@ HRESULT OzansKinect::Kinect::Process()
 	return S_OK;
 }
 
-void OzansKinect::Kinect::Draw()
+Vector4 OzansKinect::Kinect::getOrgans(int i)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glPointSize(5);
-
-	glBegin(GL_POINT);
-
-	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
-	{
-		glVertex3f(skeletonData.SkeletonPositions[i].x, skeletonData.SkeletonPositions[i].y, skeletonData.SkeletonPositions[i].z);
-	}
-	glEnd();
-
-	glFlush();
+	return organs[i];
 }
+

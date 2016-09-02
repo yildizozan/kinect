@@ -77,28 +77,30 @@ HRESULT OzansKinect::Kinect::Process()
 	NUI_SKELETON_FRAME skeletonFrame;
 
 	HRESULT hr = mNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
+	if (FAILED(hr)) return hr;
 
 	// Smooth skeleton data
 	mNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
 
-	for (int i = 0; i < NUI_SKELETON_COUNT; i++)
+	for (int unsigned i = 0; i < NUI_SKELETON_COUNT; i++)
 	{
 		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
-			for (int j = 0; j < 21; j++)
+			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
 			{
-				// Skeleton 21 points
-				Vector4 organ = skeletonFrame.SkeletonData[i].SkeletonPositions[j];
-				std::cout << "x" << organ.x << " y" << organ.y << " z" << organ.z << std::endl;
+				organs[j] = skeletonFrame.SkeletonData[i].SkeletonPositions[j];
+				std::cout << organs[j].x << " " << organs[j].y << " " << organs[j].z << std::endl;
 			}
 		}
 	}
-	system("cls");
+	system("CLS");
 
 	return S_OK;
 }
+
+Vector4 OzansKinect::Kinect::getOrgans(int i)
+{
+	return organs[i];
+}
+

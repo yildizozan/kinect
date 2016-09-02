@@ -90,11 +90,12 @@ HRESULT OzansKinect::Kinect::Process()
 		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
-			Vector4 rightHand = skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT];
-			Vector4 leftHand = skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_LEFT];
-
-			std::cout << "x" << rightHand.x << " y" << rightHand.y << " z" << rightHand.z << std::endl;
-			std::cout << "x" << leftHand.x << " y" << leftHand.y << " z" << leftHand.z << std::endl;
+			for (int j = 0; j < 21; j++)
+			{
+				// Skeleton 21 points
+				Vector4 organ = skeletonFrame.SkeletonData[i].SkeletonPositions[j];
+				std::cout << "x" << organ.x << " y" << organ.y << " z" << organ.z << std::endl;
+			}
 		}
 	}
 	system("cls");

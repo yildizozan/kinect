@@ -5,11 +5,15 @@ namespace OzansKinect {
 	private:
 		INuiSensor* mNuiSensor;
 
+
 	public:
 		Kinect();
 		~Kinect();
 
 		HRESULT Connection();
 		HRESULT Process();
+
+		void Draw(const NUI_SKELETON_DATA &);
+
 	};
 }

@@ -2,6 +2,9 @@
 #include <iostream>
 #include <Windows.h>
 
+// OpenGL
+#include <GL/glut.h>
+
 // Nui Api
 #include "NuiApi.h"
 
@@ -11,15 +14,18 @@
 
 using namespace OzansKinect;
 
-int main()
+int main(int argc, char ** argv)
 {
+	glutInit(&argc, argv);
+	glutCreateWindow("First Window");
+	glutInitWindowSize(1024, 768);
+
 	Kinect kinect;
 
 	HRESULT hr = kinect.Connection();
 	if (SUCCEEDED(hr))
 	{
-		while (1)
-			kinect.Process();
+		glutDisplayFunc(kinect.Draw);
 	}
 
 

@@ -2,6 +2,9 @@
 #include <iostream>
 #include <Windows.h>
 
+// OpenGL
+#include <gl/glut.h>
+
 // Nui Api
 #include "NuiApi.h"
 
@@ -90,15 +93,24 @@ HRESULT OzansKinect::Kinect::Process()
 		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
-			for (int j = 0; j < 21; j++)
-			{
-				// Skeleton 21 points
-				Vector4 organ = skeletonFrame.SkeletonData[i].SkeletonPositions[j];
-				std::cout << "x" << organ.x << " y" << organ.y << " z" << organ.z << std::endl;
-			}
+			Draw(skeletonFrame.SkeletonData[i]);
 		}
 	}
-	system("cls");
+	system("CLS");
 
 	return S_OK;
+}
+
+void OzansKinect::Kinect::Draw(const NUI_SKELETON_DATA &skeletonData)
+{
+	glClear(GL_COLOR_CLEAR_VALUE);
+	glBegin(GL_POINT);
+	glPointSize(2);
+	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
+	{
+		glVertex3f(skeletonData.SkeletonPositions[i].x, skeletonData.SkeletonPositions[i].x, skeletonData.SkeletonPositions[i].x);
+	}
+	glEnd();
+
+	glFlush();
 }

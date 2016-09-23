@@ -78,14 +78,14 @@ HRESULT Kinect::Connection()
 	return hr;
 }
 
-NUI_SKELETON_FRAME Kinect::Process()
+bool Kinect::Process()
 {
 	NUI_SKELETON_FRAME skeletonFrame;
 
 	HRESULT hr = mNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
 	if (FAILED(hr))
 	{
-		return;
+		false;
 	}
 
 	// Smooth skeleton data
@@ -97,14 +97,11 @@ NUI_SKELETON_FRAME Kinect::Process()
 		
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
-			// exit
-			//if (organs->getHandRight().size() == 99) exit = true;
+			// Set organs coordinates
+			organs->setCoordinates(skeletonFrame.SkeletonData[i]);
 
 			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
 			{
-				// Save organs coordinates
-				//organs->setCoord(skeletonFrame.SkeletonData[i].SkeletonPositions[j], j);
-
 				// Console write coord
 				std::cout 
 					<< "X:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " "
@@ -116,7 +113,7 @@ NUI_SKELETON_FRAME Kinect::Process()
 	}
 	system("CLS");
 
-	return skeletonFrame;
+	return true;
 }
 
 bool Kinect::getExit() const

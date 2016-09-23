@@ -47,8 +47,84 @@ Organs::Organs(const Organs &newOrgans)
 	this->footRight = newOrgans.footRight;
 }
 
+OzansOrgans::Organs::Organs(const NUI_SKELETON_DATA &pSkeletonData)
+{
+	setCoordinates(pSkeletonData);
+}
+
 
 Organs::~Organs()
 {
 
+}
+
+void OzansOrgans::Organs::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
+{
+	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
+	{
+		Vector4 data = pSkeletonData.SkeletonPositions[i];
+		switch (i)
+		{
+		case NUI_SKELETON_POSITION_HEAD:
+			this->head.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_SHOULDER_CENTER:
+			this->shoulderCenter.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_SHOULDER_LEFT:
+			this->shoulderLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_ELBOW_LEFT:
+			this->elbowLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_WRIST_LEFT:
+			this->wristLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_HAND_LEFT:
+			this->handLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_SHOULDER_RIGHT:
+			this->shoulderRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_ELBOW_RIGHT:
+			this->elbowRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_WRIST_RIGHT:
+			this->wristRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_HAND_RIGHT:
+			this->handRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_SPINE:
+			this->spine.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_HIP_CENTER:
+			this->hipCenter.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_HIP_LEFT:
+			this->hipLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_KNEE_LEFT:
+			this->kneeLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_ANKLE_LEFT:
+			this->ankleLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_FOOT_LEFT:
+			this->footLeft.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_HIP_RIGHT:
+			this->hipRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_KNEE_RIGHT:
+			this->kneeRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_ANKLE_RIGHT:
+			this->ankleRight.push_back(data);
+			break;
+		case NUI_SKELETON_POSITION_FOOT_RIGHT:
+			this->footRight.push_back(data);
+			break;
+		}
+	}
 }

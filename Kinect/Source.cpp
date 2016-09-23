@@ -13,7 +13,17 @@
 
 int main(int argc, char** argv)
 {
+	OzansKinect::Kinect kinect;
+	OzansOrgans::Organs organs;
 
+	// Train pc
+	HRESULT hr = kinect.Connection();
+	if (SUCCEEDED(hr))
+	{
+		while (kinect.Process())
+		{
+		}
+	}
 
 	system("PAUSE");
 	return 0;

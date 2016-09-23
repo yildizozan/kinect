@@ -128,3 +128,27 @@ void OzansOrgans::Organs::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 		}
 	}
 }
+
+void OzansOrgans::Organs::allClear(void)
+{
+	this->head.clear();
+	this->shoulderCenter.clear();
+	this->shoulderLeft.clear();
+	this->elbowLeft.clear();
+	this->wristLeft.clear();
+	this->handLeft.clear();
+	this->shoulderRight.clear();
+	this->elbowRight.clear();
+	this->wristRight.clear();
+	this->handRight.clear();
+	this->spine.clear();
+	this->hipCenter.clear();
+	this->hipLeft.clear();
+	this->kneeLeft.clear();
+	this->ankleLeft.clear();
+	this->footLeft.clear();
+	this->hipRight.clear();
+	this->kneeRight.clear();
+	this->ankleRight.clear();
+	this->footRight.clear();
+}

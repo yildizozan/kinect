@@ -16,7 +16,6 @@ using namespace OzansKinect;
 Kinect::Kinect()
 	:mNuiSensor(NULL), exit(false)
 {
-	outputFile = std::ofstream("dataset.txt");
 }
 
 
@@ -26,10 +25,9 @@ Kinect::~Kinect()
 	{
 		mNuiSensor->NuiShutdown();
 	}
-
-	outputFile.close();
 }
 
+// First connection to kinect
 HRESULT Kinect::Connection()
 {
 	INuiSensor* pNuiSensor;
@@ -100,6 +98,7 @@ bool Kinect::Process()
 			// Set organs coordinates
 			organs->setCoordinates(skeletonFrame.SkeletonData[i]);
 
+			// Write skeleton positions
 			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
 			{
 				// Console write coord
@@ -114,6 +113,15 @@ bool Kinect::Process()
 	system("CLS");
 
 	return true;
+}
+
+// Kinect save standart human behavior.
+void OzansKinect::Kinect::Training()
+{
+	while (Process())
+		if (organs->getOrgansSize() != SAMPLE_NUMBER)
+			break;
+
 }
 
 bool Kinect::getExit() const

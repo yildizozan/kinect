@@ -1,21 +1,28 @@
 #pragma once
-namespace OzansKinect {
+
+namespace OzansKinect
+{
 	class Kinect
 	{
 	private:
+		bool exit;
+
+		// Kinect sensor pointer
 		INuiSensor* mNuiSensor;
-		Vector4 organs[NUI_SKELETON_POSITION_COUNT];
 
-		//void setCoordinate(const NUI_SKELETON_DATA &);
-
+		// Storage for organs
+		OzansOrgans::Organs* organs;
+		std::ofstream outputFile;
 	public:
 		Kinect();
 		~Kinect();
 
 		HRESULT Connection();
-		HRESULT Process();
+		void Process();
 
-		Vector4 getOrgans(int);
+		bool getExit() const;
+
+		OzansOrgans::Organs getOrgans() { this->organs; };
 
 	};
 }

@@ -1,6 +1,8 @@
 // Standard lib
 #include <iostream>
+#include <vector>
 #include <Windows.h>
+#include <fstream>
 
 // Nui Api
 #include "NuiApi.h"
@@ -8,22 +10,26 @@
 // My Header
 #include "Kinect.h"
 
+using namespace OzansKinect;
 
-OzansKinect::Kinect::Kinect()
-	:mNuiSensor(NULL)
+Kinect::Kinect()
+	:mNuiSensor(NULL), exit(false)
 {
+	outputFile = std::ofstream("dataset.txt");
 }
 
 
-OzansKinect::Kinect::~Kinect()
+Kinect::~Kinect()
 {
 	if (mNuiSensor)
 	{
 		mNuiSensor->NuiShutdown();
 	}
+
+	outputFile.close();
 }
 
-HRESULT OzansKinect::Kinect::Connection()
+HRESULT Kinect::Connection()
 {
 	INuiSensor* pNuiSensor;
 
@@ -66,18 +72,20 @@ HRESULT OzansKinect::Kinect::Connection()
 	{
 		std::cout << "Kinect not found!" << std::endl;
 		return E_FAIL;
-
 	}
 
 	return hr;
 }
 
-HRESULT OzansKinect::Kinect::Process()
+void Kinect::Process()
 {
 	NUI_SKELETON_FRAME skeletonFrame;
 
 	HRESULT hr = mNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
-	if (FAILED(hr)) return hr;
+	if (FAILED(hr))
+	{
+		return;
+	}
 
 	// Smooth skeleton data
 	mNuiSensor->NuiTransformSmooth(&skeletonFrame, NULL);
@@ -85,22 +93,32 @@ HRESULT OzansKinect::Kinect::Process()
 	for (int unsigned i = 0; i < NUI_SKELETON_COUNT; i++)
 	{
 		NUI_SKELETON_TRACKING_STATE trackingState = skeletonFrame.SkeletonData[i].eTrackingState;
+		
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
+			// exit
+			if (organs->getHandRight().size() == 99) exit = true;
+
 			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
 			{
-				organs[j] = skeletonFrame.SkeletonData[i].SkeletonPositions[j];
-				std::cout << organs[j].x << " " << organs[j].y << " " << organs[j].z << std::endl;
+				// Save organs coordinates
+				organs->setCoord(skeletonFrame.SkeletonData[i].SkeletonPositions[j], j);
+
+				// Console write coord
+				std::cout 
+					<< "X:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " "
+					<< "Y:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " "
+					<< ">:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " " <<
+				std::endl;
 			}
 		}
 	}
 	system("CLS");
 
-	return S_OK;
+	return;
 }
 
-Vector4 OzansKinect::Kinect::getOrgans(int i)
+bool Kinect::getExit() const
 {
-	return organs[i];
+	return this->exit;
 }
-

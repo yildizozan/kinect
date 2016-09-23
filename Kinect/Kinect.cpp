@@ -8,6 +8,7 @@
 #include "NuiApi.h"
 
 // My Header
+#include "Organs.h"
 #include "Kinect.h"
 
 using namespace OzansKinect;
@@ -77,7 +78,7 @@ HRESULT Kinect::Connection()
 	return hr;
 }
 
-void Kinect::Process()
+NUI_SKELETON_FRAME Kinect::Process()
 {
 	NUI_SKELETON_FRAME skeletonFrame;
 
@@ -97,25 +98,25 @@ void Kinect::Process()
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
 			// exit
-			if (organs->getHandRight().size() == 99) exit = true;
+			//if (organs->getHandRight().size() == 99) exit = true;
 
 			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
 			{
 				// Save organs coordinates
-				organs->setCoord(skeletonFrame.SkeletonData[i].SkeletonPositions[j], j);
+				//organs->setCoord(skeletonFrame.SkeletonData[i].SkeletonPositions[j], j);
 
 				// Console write coord
 				std::cout 
 					<< "X:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " "
-					<< "Y:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " "
-					<< ">:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " " <<
+					<< "Y:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].y << " "
+					<< ">:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].z << " " <<
 				std::endl;
 			}
 		}
 	}
 	system("CLS");
 
-	return;
+	return skeletonFrame;
 }
 
 bool Kinect::getExit() const

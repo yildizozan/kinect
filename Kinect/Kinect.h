@@ -18,7 +18,7 @@ namespace OzansKinect
 		~Kinect();
 
 		HRESULT Connection();
-		void Process();
+		NUI_SKELETON_FRAME Process();
 
 		bool getExit() const;
 

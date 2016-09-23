@@ -8,6 +8,7 @@
 #include "NuiApi.h"
 
 // My Header
+#include "Organs.h"
 #include "Kinect.h"
 
 int main(int argc, char** argv)

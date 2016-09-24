@@ -6,10 +6,16 @@ namespace OzansMotions
 	public:
 		Motion();
 		~Motion();
-	private:
-		OzansOrgans::Organ organs;
 
-		void jump();
-		void handShake();
+		void setJumpData(const OzansOrgans::Organ);
+		OzansOrgans::Organ getJumpData(void) const;
+
+		void setHandShakeData(const OzansOrgans::Organ);
+		OzansOrgans::Organ getHandShakeData(void) const;
+
+	private:
+		OzansOrgans::Organ jump;
+		OzansOrgans::Organ handShake;
+
 	};
 }

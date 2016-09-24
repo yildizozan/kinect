@@ -20,10 +20,23 @@ OzansMotions::Motion::~Motion()
 {
 }
 
-void OzansMotions::Motion::jump()
+void OzansMotions::Motion::setJumpData(const OzansOrgans::Organ pJumpData)
 {
+	this->jump = pJumpData;
 }
 
-void OzansMotions::Motion::handShake()
+OzansOrgans::Organ OzansMotions::Motion::getJumpData(void) const
 {
+	return this->jump;
 }
+
+void OzansMotions::Motion::setHandShakeData(const OzansOrgans::Organ pHandShakeData)
+{
+	this->handShake = pHandShakeData;
+}
+
+OzansOrgans::Organ OzansMotions::Motion::getHandShakeData(void) const
+{
+	return this->handShake;
+}
+

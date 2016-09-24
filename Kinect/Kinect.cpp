@@ -120,7 +120,7 @@ void OzansKinect::Kinect::Training()
 	// If process capture SAMPLE_NUMBER frame
 	// Stop the Process function
 	while (Process())
-		if (organs->getOrgansSize() != SAMPLE_NUMBER)
+		if (organs->getOrgansSize() == SAMPLE_SIZE)
 			break;
 
 	// Pointer assingment
@@ -129,9 +129,11 @@ void OzansKinect::Kinect::Training()
 	// Delete temp
 	organs->allClear();
 
-
+	// Jump training
 	while (Process())
-	{
-		
-	}
+		if (organs->getOrgansSize() == SAMPLE_SIZE)
+		{
+			motions->setJumpData(*organs);
+			break;
+		}
 }

@@ -14,10 +14,13 @@ namespace OzansKinect
 
 	private:
 		// Sample numbers
-		const unsigned int SAMPLE_NUMBER = 5000;
+		const unsigned int SAMPLE_SIZE = 5000;
 
 		// Kinect sensor pointer
 		INuiSensor* mNuiSensor;
+
+		// Motions
+		OzansMotions::Motion* motions;
 
 		// Storage for organs coordinates
 		OzansOrgans::Organ* organs;

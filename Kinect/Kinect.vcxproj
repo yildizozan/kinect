@@ -134,12 +134,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Kinect.cpp" />
-    <ClCompile Include="Organs.cpp" />
+    <ClCompile Include="Motion.cpp" />
+    <ClCompile Include="Organ.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Kinect.h" />
-    <ClInclude Include="Organs.h" />
+    <ClInclude Include="Motion.h" />
+    <ClInclude Include="Organ.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

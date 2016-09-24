@@ -1,13 +1,13 @@
 #pragma once
 namespace OzansOrgans
 {
-	class Organs
+	class Organ
 	{
 	public:
-		Organs();
-		Organs(const Organs &);	// Copy constructor
-		Organs(const NUI_SKELETON_DATA &);
-		~Organs();
+		Organ();
+		Organ(const Organ &);	// Copy constructor
+		Organ(const NUI_SKELETON_DATA &);
+		~Organ();
 
 		// General functions
 		void setCoordinates(const NUI_SKELETON_DATA &);

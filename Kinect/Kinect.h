@@ -12,21 +12,16 @@ namespace OzansKinect
 		bool Process();
 		void Training();
 
-		bool getExit() const;
-
-		OzansOrgans::Organs getOrgans() { this->organs; };
 	private:
 		// Sample numbers
 		const unsigned int SAMPLE_NUMBER = 5000;
 
-		// Finish the process loop
-		bool exit;
-
 		// Kinect sensor pointer
 		INuiSensor* mNuiSensor;
 
-		// Storage for organs
-		OzansOrgans::Organs* organs;
+		// Storage for organs coordinates
+		OzansOrgans::Organ* organs;
+		OzansOrgans::Organ* refrence;
 
 	};
 }

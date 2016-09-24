@@ -2,19 +2,19 @@
 #include <iostream>
 #include <vector>
 #include <Windows.h>
-#include <fstream>
 
 // Nui Api
 #include "NuiApi.h"
 
 // My Header
-#include "Organs.h"
+#include "Organ.h"
+#include "Motion.h"
 #include "Kinect.h"
 
 using namespace OzansKinect;
 
 Kinect::Kinect()
-	:mNuiSensor(NULL), exit(false)
+	:mNuiSensor(NULL)
 {
 }
 
@@ -118,13 +118,21 @@ bool Kinect::Process()
 // Kinect save standart human behavior.
 void OzansKinect::Kinect::Training()
 {
+	// If process capture SAMPLE_NUMBER frame
+	// Stop the Process function
 	while (Process())
 		if (organs->getOrgansSize() != SAMPLE_NUMBER)
 			break;
 
-}
+	// Pointer assingment
+	refrence = organs;
 
-bool Kinect::getExit() const
-{
-	return this->exit;
+	// Delete temp
+	organs->allClear();
+
+
+	while (Process())
+	{
+		
+	}
 }

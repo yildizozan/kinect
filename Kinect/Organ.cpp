@@ -2,23 +2,23 @@
 #include <iostream>
 #include <vector>
 #include <Windows.h>
-#include <fstream>
 
 // Nui Api
 #include "NuiApi.h"
 
 // My Header
-#include "Organs.h"
+#include "Organ.h"
+#include "Motion.h"
 #include "Kinect.h"
 
 using namespace OzansOrgans;
 
-Organs::Organs()
+Organ::Organ()
 {
 
 }
 
-Organs::Organs(const Organs &newOrgans)
+Organ::Organ(const Organ &newOrgans)
 {
 	this->head = newOrgans.head;
 	this->shoulderCenter = newOrgans.shoulderCenter;
@@ -47,18 +47,18 @@ Organs::Organs(const Organs &newOrgans)
 	this->footRight = newOrgans.footRight;
 }
 
-OzansOrgans::Organs::Organs(const NUI_SKELETON_DATA &pSkeletonData)
+Organ::Organ(const NUI_SKELETON_DATA &pSkeletonData)
 {
 	setCoordinates(pSkeletonData);
 }
 
 
-Organs::~Organs()
+Organ::~Organ()
 {
 
 }
 
-void OzansOrgans::Organs::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
+void Organ::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 {
 	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
 	{
@@ -129,7 +129,7 @@ void OzansOrgans::Organs::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 	}
 }
 
-void OzansOrgans::Organs::allClear(void)
+void Organ::allClear(void)
 {
 	this->head.clear();
 	this->shoulderCenter.clear();

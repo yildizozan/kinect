@@ -11,12 +11,19 @@
 #include "Motion.h"
 #include "Kinect.h"
 
-using namespace OzansMotions;
 
-Motion::Motion()
+OzansMotions::Motion::Motion()
 {
 }
 
-Motion::~Motion()
+OzansMotions::Motion::~Motion()
+{
+}
+
+void OzansMotions::Motion::jump()
+{
+}
+
+void OzansMotions::Motion::handShake()
 {
 }

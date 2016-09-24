@@ -11,15 +11,14 @@
 #include "Motion.h"
 #include "Kinect.h"
 
-using namespace OzansKinect;
 
-Kinect::Kinect()
+OzansKinect::Kinect::Kinect()
 	:mNuiSensor(NULL)
 {
 }
 
 
-Kinect::~Kinect()
+OzansKinect::Kinect::~Kinect()
 {
 	if (mNuiSensor)
 	{
@@ -28,7 +27,7 @@ Kinect::~Kinect()
 }
 
 // First connection to kinect
-HRESULT Kinect::Connection()
+HRESULT OzansKinect::Kinect::Connection()
 {
 	INuiSensor* pNuiSensor;
 
@@ -76,7 +75,7 @@ HRESULT Kinect::Connection()
 	return hr;
 }
 
-bool Kinect::Process()
+bool OzansKinect::Kinect::Process()
 {
 	NUI_SKELETON_FRAME skeletonFrame;
 

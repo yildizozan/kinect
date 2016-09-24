@@ -7,5 +7,9 @@ namespace OzansMotions
 		Motion();
 		~Motion();
 	private:
+		OzansOrgans::Organ organs;
+
+		void jump();
+		void handShake();
 	};
 }

@@ -11,14 +11,13 @@
 #include "Motion.h"
 #include "Kinect.h"
 
-using namespace OzansOrgans;
 
-Organ::Organ()
+OzansOrgans::Organ::Organ()
 {
 
 }
 
-Organ::Organ(const Organ &newOrgans)
+OzansOrgans::Organ::Organ(const Organ &newOrgans)
 {
 	this->head = newOrgans.head;
 	this->shoulderCenter = newOrgans.shoulderCenter;
@@ -47,18 +46,18 @@ Organ::Organ(const Organ &newOrgans)
 	this->footRight = newOrgans.footRight;
 }
 
-Organ::Organ(const NUI_SKELETON_DATA &pSkeletonData)
+OzansOrgans::Organ::Organ(const NUI_SKELETON_DATA &pSkeletonData)
 {
 	setCoordinates(pSkeletonData);
 }
 
 
-Organ::~Organ()
+OzansOrgans::Organ::~Organ()
 {
 
 }
 
-void Organ::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
+void OzansOrgans::Organ::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 {
 	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
 	{
@@ -129,7 +128,7 @@ void Organ::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 	}
 }
 
-void Organ::allClear(void)
+void OzansOrgans::Organ::allClear(void)
 {
 	this->head.clear();
 	this->shoulderCenter.clear();

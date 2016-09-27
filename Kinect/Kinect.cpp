@@ -3,6 +3,10 @@
 #include <vector>
 #include <Windows.h>
 
+// OpenCV 3.1
+#include <opencv2/core.hpp>
+#include <opencv2/ml.hpp>
+
 // Nui Api
 #include "NuiApi.h"
 
@@ -15,6 +19,7 @@
 OzansKinect::Kinect::Kinect()
 	:mNuiSensor(NULL)
 {
+	this->mOrgan = new OzansOrgans::Organ;
 }
 
 
@@ -24,6 +29,8 @@ OzansKinect::Kinect::~Kinect()
 	{
 		mNuiSensor->NuiShutdown();
 	}
+
+	delete mOrgan;
 }
 
 // First connection to kinect
@@ -75,14 +82,14 @@ HRESULT OzansKinect::Kinect::Connection()
 	return hr;
 }
 
-bool OzansKinect::Kinect::Process()
+void OzansKinect::Kinect::Process() const
 {
 	NUI_SKELETON_FRAME skeletonFrame;
 
 	HRESULT hr = mNuiSensor->NuiSkeletonGetNextFrame(0, &skeletonFrame);
 	if (FAILED(hr))
 	{
-		false;
+		return;
 	}
 
 	// Smooth skeleton data
@@ -95,33 +102,90 @@ bool OzansKinect::Kinect::Process()
 		if (trackingState == NUI_SKELETON_TRACKED)
 		{
 			// Set organs coordinates
-			organs->setCoordinates(skeletonFrame.SkeletonData[i]);
+			mOrgan->addCoordinates(skeletonFrame.SkeletonData[i]);
 
-			// Write skeleton positions
-			for (int j = 0; j < NUI_SKELETON_POSITION_COUNT; j++)
-			{
-				// Console write coord
-				std::cout 
-					<< "X:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].x << " "
-					<< "Y:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].y << " "
-					<< ">:" << skeletonFrame.SkeletonData[i].SkeletonPositions[j].z << " " <<
-				std::endl;
-			}
+			// Console write coord
+			std::cout
+				<< "X:" << skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT].x << " "
+				<< "Y:" << skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT].y << " "
+				<< ">:" << skeletonFrame.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HAND_RIGHT].z << " " <<
+			std::endl;
 		}
 	}
 	system("CLS");
-
-	return true;
 }
 
-// Kinect save standart human behavior.
-void OzansKinect::Kinect::Training()
+/*
+ * Kinect save standart human behavior.
+ * If process capture SAMPLE_COUNT frame
+ * Stop the Process() function
+ */
+bool OzansKinect::Kinect::Training()
 {
-	// If process capture SAMPLE_NUMBER frame
-	// Stop the Process function
-	while (Process())
-		if (organs->getOrgansSize() == SAMPLE_SIZE)
+	// Initialize refrence data
+	while (true)
+	{
+		if (mOrgan->size() != SAMPLE_COUNT)
+			Process();
+		else
 			break;
+	}
+
+	// Initialize refrence motions
+	motions = new OzansMotions::Motion(*mOrgan);
+
+	// Sleep for next motion
+	Sleep(1000);
+
+	// Clear temp data organs
+	mOrgan->clear();
+
+	// Initialize handshake data
+	while (true)
+	{
+		if (mOrgan->size() != SAMPLE_COUNT)
+			Process();
+		else
+			break;
+	}
+
+	// Set handshake datas
+	motions->setHandShakeData(*mOrgan);
+
+	// Clear all temp organ data
+	mOrgan->clear();
+
+	// Train hand shake motion
+	if (motions->trainHandShake())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void OzansKinect::Kinect::CheckHandShake()
+{
+	while (true)
+	{
+		if (mOrgan->size() != TEST_SAMPLE_COUNT)
+			Process();
+		else
+		{
+			float response = this->motions->predict(mOrgan->getHandRight(), NUI_SKELETON_POSITION_HAND_RIGHT);
+			if (response == 1)
+				std::cout << "HankShake High Five!" << std::endl;
+
+			mOrgan->clear();
+		}
+	}
+}
+
+/*
+	if (organs->getOrgansSize() == SAMPLE_SIZE)
+		break;
 
 	// Pointer assingment
 	refrence = organs;
@@ -136,4 +200,4 @@ void OzansKinect::Kinect::Training()
 			motions->setJumpData(*organs);
 			break;
 		}
-}
+ */

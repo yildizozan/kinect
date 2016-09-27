@@ -5,26 +5,27 @@ namespace OzansKinect
 	class Kinect
 	{
 	public:
+		static const unsigned int SAMPLE_COUNT = 50;
+		static const unsigned int TEST_SAMPLE_COUNT = 7;
+
 		Kinect();
 		~Kinect();
 
 		HRESULT Connection();
-		bool Process();
-		void Training();
+		bool Training();
+		void CheckHandShake();
 
 	private:
 		// Sample numbers
-		const unsigned int SAMPLE_SIZE = 5000;
 
 		// Kinect sensor pointer
 		INuiSensor* mNuiSensor;
-
-		// Motions
-		OzansMotions::Motion* motions;
+		void Process() const;
 
 		// Storage for organs coordinates
-		OzansOrgans::Organ* organs;
-		OzansOrgans::Organ* refrence;
+		OzansOrgans::Organ* mOrgan;
 
+		// Initialize refrence motions
+		OzansMotions::Motion* motions;
 	};
 }

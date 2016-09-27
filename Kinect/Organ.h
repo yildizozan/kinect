@@ -10,9 +10,9 @@ namespace OzansOrgans
 		~Organ();
 
 		// General functions
-		void setCoordinates(const NUI_SKELETON_DATA &);
-		size_t getOrgansSize() const { return this->head.size(); };
-		void allClear(void);
+		void addCoordinates(const NUI_SKELETON_DATA &);
+		size_t size() const;;
+		void clear(void);
 
 		// Setter & Getters
 		void setHead(std::vector<Vector4> head) { this->head = head; }
@@ -82,6 +82,7 @@ namespace OzansOrgans
 		std::vector<Vector4> kneeRight;
 		std::vector<Vector4> ankleRight;
 		std::vector<Vector4> footRight;
+
 
 	};
 }

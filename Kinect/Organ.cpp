@@ -3,6 +3,10 @@
 #include <vector>
 #include <Windows.h>
 
+// OpenCV 3.1
+#include <opencv2/core.hpp>
+#include <opencv2/ml.hpp>
+
 // Nui Api
 #include "NuiApi.h"
 
@@ -48,7 +52,7 @@ OzansOrgans::Organ::Organ(const Organ &newOrgans)
 
 OzansOrgans::Organ::Organ(const NUI_SKELETON_DATA &pSkeletonData)
 {
-	setCoordinates(pSkeletonData);
+	addCoordinates(pSkeletonData);
 }
 
 
@@ -57,11 +61,13 @@ OzansOrgans::Organ::~Organ()
 
 }
 
-void OzansOrgans::Organ::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
+
+void OzansOrgans::Organ::addCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 {
 	for (int i = 0; i < NUI_SKELETON_POSITION_COUNT; i++)
 	{
 		Vector4 data = pSkeletonData.SkeletonPositions[i];
+
 		switch (i)
 		{
 		case NUI_SKELETON_POSITION_HEAD:
@@ -124,11 +130,18 @@ void OzansOrgans::Organ::setCoordinates(const NUI_SKELETON_DATA &pSkeletonData)
 		case NUI_SKELETON_POSITION_FOOT_RIGHT:
 			this->footRight.push_back(data);
 			break;
+		default:
+			break;
 		}
 	}
 }
 
-void OzansOrgans::Organ::allClear(void)
+size_t OzansOrgans::Organ::size() const
+{
+	return this->head.size();
+}
+
+void OzansOrgans::Organ::clear(void)
 {
 	this->head.clear();
 	this->shoulderCenter.clear();

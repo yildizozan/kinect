@@ -29,9 +29,5 @@ namespace OzansMotions
 		OzansOrgans::Organ mHandShake;
 
 		cv::Ptr<cv::ml::SVM> svm;
-
-
-		// Uncoplete function
-		cv::Mat createMatrix(unsigned int pRow, unsigned int pColumn, int pType, OzansOrgans::Organ organ);
 	};
 }

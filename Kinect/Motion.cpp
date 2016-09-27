@@ -115,17 +115,3 @@ float OzansMotions::Motion::predict(const std::vector<Vector4> &pData, const flo
 	
 	return this->svm->predict(testDataMat);
 }
-
-cv::Mat OzansMotions::Motion::createMatrix(unsigned pRow, unsigned pColumn, int pType, OzansOrgans::Organ organ)
-{
-	float matrixData[OzansKinect::Kinect::SAMPLE_COUNT][FEATURE];
-	cv::Mat matrix(pRow, pColumn, pType);
-
-	for (unsigned int i = 0; i < OzansKinect::Kinect::SAMPLE_COUNT; i++)
-	{
-		matrixData[i][0] = mHandShake.getHandRight().at(i).x;
-		matrixData[i][1] = mHandShake.getHandRight().at(i).y;
-		matrixData[i][2] = NUI_SKELETON_POSITION_HAND_RIGHT; // Thats problem
-	}
-	return matrix;
-}
